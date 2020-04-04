@@ -4,11 +4,8 @@ import UU4b from "./cases/UU4b.png";
 import UL5a from "./cases/UL5a.png";
 import DD1a from "./cases/DD1a.png";
 import UR5a from "./cases/UR5a.png";
+import DR5a from "./cases/DR5a.png";
 import next from "./cases/DD1a.png";
-import next1 from "./cases/DD1a.png";
-import next2 from "./cases/DD1a.png";
-import next3 from "./cases/DD1a.png";
-import next4 from "./cases/DD1a.png";
 
 export default [
   {
@@ -36,6 +33,18 @@ export default [
     name: "UR5a",
   },
   {
+    src: DR5a,
+    name: "DR5a",
+  },
+  {
+    src: next,
+    name: "next",
+  },
+  {
+    src: next,
+    name: "next",
+  },
+  {
     src: next,
     name: "next",
   },
@@ -48,19 +57,7 @@ export default [
     name: "next",
   },
   {
-    src: next4,
-    name: "next",
-  },
-  {
-    src: next3,
-    name: "next",
-  },
-  {
-    src: next2,
-    name: "next",
-  },
-  {
-    src: next1,
+    src: next,
     name: "next",
   },
 ];
