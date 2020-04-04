@@ -4,6 +4,7 @@ import UU4b from "./cases/UU4b.png";
 import UL5a from "./cases/UL5a.png";
 import DD1a from "./cases/DD1a.png";
 import UR5a from "./cases/UR5a.png";
+import UR5b from "./cases/UR5b.png";
 import DR5a from "./cases/DR5a.png";
 import next from "./cases/DD1a.png";
 
@@ -37,8 +38,8 @@ export default [
     name: "DR5a",
   },
   {
-    src: next,
-    name: "next",
+    src: UR5b,
+    name: "UR5b",
   },
   {
     src: next,
