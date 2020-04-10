@@ -11,7 +11,6 @@ ReactDOM.render(
       <Route exact path="/" component={App} />
       <Route path="/algorithms" component={App} />
     </HashRouter>
-    ,
   </React.StrictMode>,
   document.getElementById("root")
 );
