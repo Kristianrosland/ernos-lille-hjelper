@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/ernos-lille-hjelper/precache-manifest.ae61725afb49dfcfb3db7a84fb863f0c.js"
+  "/ernos-lille-hjelper/precache-manifest.12621115209a851d1e58666387fe460c.js"
 );
 
 self.addEventListener('message', (event) => {
