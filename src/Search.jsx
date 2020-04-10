@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import KeyboardEventHandler from "react-keyboard-event-handler";
 import cases from "./cases";
+import css from "./app.less";
 
 const Search = ({ setQuizMode }) => {
   const [query, setQuery] = useState("");
@@ -20,9 +21,9 @@ const Search = ({ setQuizMode }) => {
   return (
     <>
       <KeyboardEventHandler handleKeys={["q"]} onKeyEvent={setQuizMode} />
-      <input value={query} onChange={onChange} className={"query-input"} />
+      <input value={query} onChange={onChange} className={css.queryInput} />
       {currentCases.map((c) => (
-        <img key={c.name} src={c.src} className={"image"} alt="Solution" />
+        <img key={c.name} src={c.src} className={css.image} alt="Solution" />
       ))}
     </>
   );
