@@ -2,14 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { HashRouter, Route } from "react-router-dom";
 import Algorithms from "./Algorithms";
-import App from "./App";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
+import Timer from "./timer/Timer";
 
 ReactDOM.render(
   <React.StrictMode>
     <HashRouter>
-      <Route exact path="/" component={App} />
+      <Route exact path="/" component={Timer} />
       <Route path="/algorithms" component={Algorithms} />
     </HashRouter>
   </React.StrictMode>,
