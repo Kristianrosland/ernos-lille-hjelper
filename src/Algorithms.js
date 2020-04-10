@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import css from "./app.less";
+import Search from "./Search";
 
 const PlayMode = {
   SEARCH: "SEARCH",
@@ -11,7 +12,7 @@ const App = () => {
 
   return (
     <div className={css.container}>
-      <div>Hei, dette er meg</div>
+      <Search />
     </div>
   );
 };

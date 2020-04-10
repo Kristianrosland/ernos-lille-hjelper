@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { HashRouter, Route } from "react-router-dom";
+import Algorithms from "./Algorithms";
 import App from "./App";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
@@ -9,7 +10,7 @@ ReactDOM.render(
   <React.StrictMode>
     <HashRouter>
       <Route exact path="/" component={App} />
-      <Route path="/algorithms" component={App} />
+      <Route path="/algorithms" component={Algorithms} />
     </HashRouter>
   </React.StrictMode>,
   document.getElementById("root")
