@@ -1,0 +1,47 @@
+@import "../colors.less";
+
+.container {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  box-sizing: border-box;
+  background-color: @green;
+  padding-top: 10%;
+}
+
+.timerContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  width: 80%;
+}
+
+.timer {
+  width: 500px;
+  text-align: center;
+  font-size: 50px;
+  color: @white;
+  font-family: monospace;
+}
+
+.startButton {
+  background-color: @yellow;
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+}
+
+.startButton .leftHand {
+  transform: scaleX(-1);
+}
