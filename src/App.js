@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { HashRouter, Route } from "react-router-dom";
 import Algorithms from "./algorithms/Algorithms";
 
-import * as firebase from "firebase/app";
+import firebase from "firebase/app";
 import config from "./firebase.config";
 import "firebase/auth";
 firebase.initializeApp(config);
