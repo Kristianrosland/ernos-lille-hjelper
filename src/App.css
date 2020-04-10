@@ -7,8 +7,18 @@
   justify-content: flex-start;
   align-items: center;
 
+  box-sizing: border-box;
   background-color: #ffe68a;
   padding-top: 10%;
+}
+
+.play-mode-selection {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.selected {
+  font-weight: bold;
 }
 
 .query-input {
@@ -28,4 +38,18 @@
 
 .image:first-of-type {
   margin-top: 10%;
+}
+
+.scramble {
+  font-size: 6rem;
+}
+
+.solution {
+  font-size: 5rem;
+  margin-top: 5rem;
+  color: #ffe68a;
+}
+
+.show {
+  color: black;
 }

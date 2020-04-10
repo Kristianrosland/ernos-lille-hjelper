@@ -1,28 +1,40 @@
 import React, { useState } from "react";
-import cases from "./cases";
 import "./App.css";
+import Search from "./Search";
+import Quiz from "./Quiz";
+
+const PlayMode = {
+  SEARCH: "SEARCH",
+  QUIZ: "QUIZ",
+};
 
 const App = () => {
-  const [query, setQuery] = useState("");
-  const [currentCases, setCurrentCases] = useState([]);
-
-  const onChange = (e) => {
-    const inp = e.target.value.toUpperCase();
-    setQuery(inp);
-
-    if (inp.length === 3) {
-      const matches = cases.filter((c) => c.name.startsWith(inp));
-      setCurrentCases(matches);
-      setQuery("");
-    }
-  };
+  const [playMode, setPlayMode] = useState(PlayMode.QUIZ);
 
   return (
     <div className="container">
-      <input value={query} onChange={onChange} className={"query-input"} />
-      {currentCases.map((c) => (
-        <img key={c.name} src={c.src} className={"image"} alt={"test"} />
-      ))}
+      <div className="play-mode-selection">
+        <span
+          className={`${playMode === PlayMode.SEARCH ? "selected" : ""}`}
+          onClick={() => setPlayMode(PlayMode.SEARCH)}
+        >
+          Søk
+        </span>
+        {" | "}
+        <span
+          className={`${playMode === PlayMode.QUIZ ? "selected" : ""}`}
+          onClick={() => setPlayMode(PlayMode.QUIZ)}
+        >
+          Quiz
+        </span>
+      </div>
+
+      {playMode === PlayMode.SEARCH && (
+        <Search setQuizMode={() => setPlayMode(PlayMode.QUIZ)} />
+      )}
+      {playMode === PlayMode.QUIZ && (
+        <Quiz setSearchMode={() => setPlayMode(PlayMode.SEARCH)} />
+      )}
     </div>
   );
 };
