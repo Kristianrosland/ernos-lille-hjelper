@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import cases from "./cases";
-import css from "./app.less";
+import css from "../app.less";
 
 const Algorithms = () => {
   const [query, setQuery] = useState("");
