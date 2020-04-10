@@ -1,19 +1,14 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { HashRouter, Route } from "react-router-dom";
-import Algorithms from "./Algorithms";
-import "./index.css";
-import * as serviceWorker from "./serviceWorker";
-import Timer from "./timer/Timer";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import './index.css';
+import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <HashRouter>
-      <Route exact path="/" component={Timer} />
-      <Route path="/algorithms" component={Algorithms} />
-    </HashRouter>
-  </React.StrictMode>,
-  document.getElementById("root")
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>,
+    document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change
