@@ -68,12 +68,12 @@ const Timer: React.FC<TimerProps> = ({ timerRunning, onToggleTimerRunning, onNew
     const previousSolves = solves.slice(1);
 
     return (
-        <div className={css.timerContainer}>
+        <div className={css.timerContainer} onClick={toggleTimer}>
             {timerRunning ? (
                 <span className={classNames(css.timer, css.largeTimer, css.time)}>{formatTimer(solveTime)}</span>
             ) : (
                 <>
-                    <div className={buttonClassNames} onClick={toggleTimer}>
+                    <div className={buttonClassNames}>
                         <i className={classNames('fas fa-hand-paper', css.leftHand)} />
                     </div>
                     <div className={css.solves}>
@@ -85,7 +85,7 @@ const Timer: React.FC<TimerProps> = ({ timerRunning, onToggleTimerRunning, onNew
                             ))}
                         </div>
                     </div>
-                    <div className={buttonClassNames} onClick={toggleTimer}>
+                    <div className={buttonClassNames}>
                         <i className="fas fa-hand-paper" />
                     </div>
                 </>

@@ -1,37 +1,35 @@
 @import '../colors.less';
 
 .container {
-    width: 100vw;
-    height: 100vh;
-
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
 
+    min-height: 100vh;
+
     box-sizing: border-box;
     background-color: @green;
-    padding-top: 7rem;
+    padding: 4rem 2rem 0 2rem;
 }
 
 .scrambleContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 5rem;
+    margin-bottom: 2rem;
+    text-align: center;
 }
 
 .scramble {
-    font-size: 2.5rem;
+    font-size: 1rem;
     letter-spacing: 5px;
     color: white;
     margin-bottom: 1rem;
 }
 
 .previousScramble {
-    color: @white;
-    font-size: 1.25rem;
-    opacity: 0.7;
+    display: none;
 }
 
 .timerContainer {
@@ -39,7 +37,6 @@
     flex-direction: row;
     align-items: flex-start;
     justify-content: center;
-    height: 300px;
     width: 80%;
 }
 
@@ -51,7 +48,6 @@
 }
 
 .timer {
-    width: 500px;
     text-align: center;
     font-size: 6rem;
     margin-bottom: 1rem;
@@ -62,9 +58,8 @@
     font-family: 'Anonymous Pro', monospace;
 }
 
-.timer.largeTimer {
-    padding-top: 7rem;
-    font-size: 8rem;
+.largeTimer {
+    padding-top: 8.5rem;
 }
 
 .previousSolves {
@@ -79,20 +74,54 @@
 }
 
 .startButton {
-    background-color: @yellow;
-    border-radius: 50%;
-    height: 200px;
-    width: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 90px;
+    display: none;
 }
 
-.startButton .leftHand {
-    transform: scaleX(-1);
-}
+@media screen and (min-width: 1140px) {
+    .container {
+        padding-top: 7rem;
+    }
 
-.startButton.holding {
-    background-color: @orange;
+    .startButton {
+        background-color: @yellow;
+        border-radius: 50%;
+        height: 200px;
+        width: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 90px;
+    }
+
+    .startButton .leftHand {
+        transform: scaleX(-1);
+    }
+
+    .startButton.holding {
+        background-color: @orange;
+    }
+
+    .timer {
+        width: 500px;
+    }
+
+    .largeTimer {
+        font-size: 8rem;
+    }
+
+    .scrambleContainer {
+        margin-bottom: 5rem;
+        text-align: center;
+    }
+
+    .scramble {
+        font-size: 2.5rem;
+    }
+
+    .previousScramble {
+        color: @white;
+        font-size: 1.25rem;
+        opacity: 0.7;
+        display: inline-block;
+    }
 }
