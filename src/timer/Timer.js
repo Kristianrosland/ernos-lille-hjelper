@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
+import scrambleGenerator from 'rubiks-cube-scramble';
 import css from './timer.less';
 
 let interval;
@@ -8,16 +9,22 @@ let interval;
 const leadingZero = input => ('0' + input).slice(-2);
 
 const formatTimer = time => {
-    const seconds = Math.floor(time / 1000);
+    const minutes = Math.floor(time / 60000);
+    const seconds = Math.floor(time / 1000) % 60;
     const milliseconds = Math.floor((time % 1000) / 10);
 
-    return `${seconds}.${leadingZero(milliseconds)}`;
+    return `${minutes > 0 ? minutes + ':' : ''}${minutes > 0 ? leadingZero(seconds) : seconds}.${leadingZero(
+        milliseconds,
+    )}`;
 };
 
 const Timer = () => {
     const [startTime, setStartTime] = useState();
     const [timer, setTimer] = useState(0);
     const [timerRunning, setTimerRunning] = useState(false);
+    const [scramble, setScramble] = useState(scrambleGenerator());
+    const [holding, setHolding] = useState(false);
+    const [previousSolves, setPreviousSolves] = useState([]);
 
     useEffect(() => {
         if (timerRunning) {
@@ -40,27 +47,54 @@ const Timer = () => {
         setTimerRunning(!timerRunning);
     };
 
+    const buttonClassNames = classNames(css.startButton, { [css.holding]: holding });
+
     return (
         <div className={css.container}>
-            <div className={css.timerContainer}>
-                <div className={css.startButton} onClick={toggleTimer}>
-                    <i className={classNames('fas fa-hand-paper', css.leftHand)} />
-                </div>
-                <span className={css.timer}>{formatTimer(timer)}</span>
-                <div className={css.startButton} onClick={toggleTimer}>
-                    <i className="fas fa-hand-paper" />
-                </div>
-            </div>
+            {timerRunning ? (
+                <span className={classNames(css.timer, css.largeTimer)}>{formatTimer(timer)}</span>
+            ) : (
+                <>
+                    <div className={css.scramble}>{scramble}</div>
+
+                    <div className={css.timerContainer}>
+                        <div className={buttonClassNames} onClick={toggleTimer}>
+                            <i className={classNames('fas fa-hand-paper', css.leftHand)} />
+                        </div>
+                        <div className={css.times}>
+                            <span className={css.timer}>{formatTimer(timer)}</span>
+                            {previousSolves.map((previousTime, idx) => (
+                                <span className={css.previousSolve} key={idx}>
+                                    {previousTime}
+                                </span>
+                            ))}
+                        </div>
+                        <div className={buttonClassNames} onClick={toggleTimer}>
+                            <i className="fas fa-hand-paper" />
+                        </div>
+                    </div>
+                </>
+            )}
 
             <KeyboardEventHandler
                 handleKeys={['space']}
                 onKeyEvent={() => {
-                    if (!timerRunning) {
-                        setTimer(0);
+                    setHolding(true);
+                    setTimer(0);
+                }}
+            />
+            <KeyboardEventHandler
+                handleKeys={['space']}
+                handleEventType={'keyup'}
+                onKeyEvent={() => {
+                    setHolding(false);
+                    toggleTimer();
+                    setScramble(scrambleGenerator());
+                    if (timer !== 0) {
+                        setPreviousSolves(prev => [formatTimer(timer), ...prev]);
                     }
                 }}
             />
-            <KeyboardEventHandler handleKeys={['space']} handleEventType={'keyup'} onKeyEvent={toggleTimer} />
         </div>
     );
 };

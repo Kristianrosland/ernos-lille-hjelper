@@ -1,47 +1,73 @@
-@import "../colors.less";
+@import '../colors.less';
 
 .container {
-  width: 100vw;
-  height: 100vh;
+    width: 100vw;
+    height: 100vh;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 
-  box-sizing: border-box;
-  background-color: @green;
-  padding-top: 10%;
+    box-sizing: border-box;
+    background-color: @green;
+    padding-top: 10%;
+}
+
+.scramble {
+    font-size: 2.5rem;
+    letter-spacing: 5px;
+    color: white;
 }
 
 .timerContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  height: 300px;
-  width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    width: 80%;
 }
 
 .timer {
-  width: 500px;
-  text-align: center;
-  font-size: 50px;
-  color: @white;
-  font-family: monospace;
+    width: 500px;
+    text-align: center;
+    font-size: 50px;
+    color: @white;
+    font-family: monospace;
+}
+
+.timer.largeTimer {
+    font-size: 100px;
+}
+
+.times {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.previousSolve {
+    color: white;
+    opacity: 0.8;
+    font-size: 40px;
 }
 
 .startButton {
-  background-color: @yellow;
-  border-radius: 50%;
-  height: 100px;
-  width: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 50px;
+    background-color: @yellow;
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
 }
 
 .startButton .leftHand {
-  transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+.startButton.holding {
+    background-color: orange;
 }

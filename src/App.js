@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 import Algorithms from './algorithms/Algorithms';
+import Timer from './timer/Timer';
 
 import firebase from 'firebase/app';
 import config from './firebase.config';
@@ -31,7 +32,7 @@ const App = () => {
     return (
         <AuthContext.Provider value={authState}>
             <HashRouter>
-                <Route exact path="/" component={Algorithms} />
+                <Route exact path="/" component={Timer} />
                 <Route path="/algorithms" component={Algorithms} />
             </HashRouter>
         </AuthContext.Provider>
