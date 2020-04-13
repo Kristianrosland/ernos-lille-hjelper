@@ -3,8 +3,8 @@ import 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 import Algorithms from './algorithms/Algorithms';
+import CubeTimer from './cube-timer/CubeTimer';
 import config from './firebase.config';
-import Timer from './timer/Timer';
 import { Solve } from './types/solve-types';
 
 firebase.initializeApp(config);
@@ -50,7 +50,7 @@ const App = () => {
         <AuthContext.Provider value={authState}>
             <DataContext.Provider value={{ ...dataState, addNewSolve }}>
                 <HashRouter>
-                    <Route exact={true} path="/" component={Timer} />
+                    <Route exact={true} path="/" component={CubeTimer} />
                     <Route path="/algorithms" component={Algorithms} />
                 </HashRouter>
             </DataContext.Provider>
