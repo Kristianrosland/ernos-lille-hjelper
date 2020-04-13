@@ -5,7 +5,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import { HashRouter, Route } from 'react-router-dom';
 import Algorithms from './algorithms/Algorithms';
-import config from './firebase.config';
+import { config, solveConverter } from './firebase-utils';
 import Timer from './timer/Timer';
 import { Solve } from './types/solve-types';
 
@@ -39,6 +39,10 @@ const App = () => {
 
     const addNewSolve = (solve: Solve) => {
         setDataState(prev => ({ ...prev, sessionSolves: [solve, ...prev.sessionSolves] }));
+
+        if (authState.user !== null && solveDbCollection) {
+            solveDbCollection.doc().set(solve);
+        }
     };
 
     useEffect(() => {
@@ -48,11 +52,14 @@ const App = () => {
             firebase.auth().onAuthStateChanged(user => {
                 setAuthState({ user, isLoading: false });
 
-                if (user !== null) {
+                if (user === null) {
+                    solveDbCollection = undefined;
+                } else {
                     solveDbCollection = firebase
                         .firestore()
                         .collection('solves')
                         .doc(user.uid)
+                        .withConverter(solveConverter)
                         .collection('all_solves');
 
                     solveDbCollection.onSnapshot(snapshot => {
