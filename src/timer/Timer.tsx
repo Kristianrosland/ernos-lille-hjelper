@@ -8,6 +8,8 @@ let interval: NodeJS.Timeout | undefined;
 
 const leadingZero = (input: number) => ('0' + input).slice(-2);
 
+const now = (): number => new Date().getTime();
+
 const formatTimer = (time: number) => {
     const minutes = Math.floor(time / 60000);
     const seconds = Math.floor(time / 1000) % 60;
@@ -30,8 +32,7 @@ const Timer = () => {
     useEffect(() => {
         if (timerRunning) {
             interval = setInterval(() => {
-                console.log(new Date().getMilliseconds());
-                setTimer(new Date().getMilliseconds() - (startTime ?? 0));
+                setTimer(now() - (startTime ?? 0));
             }, 10);
         } else {
             if (interval) {
@@ -52,7 +53,7 @@ const Timer = () => {
         }
 
         if (!timerRunning) {
-            setStartTime(new Date().getMilliseconds());
+            setStartTime(now());
             setPreviousScramble(scramble);
             setScramble(scrambleGenerator());
         }
