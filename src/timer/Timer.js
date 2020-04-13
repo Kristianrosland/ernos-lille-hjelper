@@ -23,6 +23,7 @@ const Timer = () => {
     const [timer, setTimer] = useState(0);
     const [timerRunning, setTimerRunning] = useState(false);
     const [scramble, setScramble] = useState(scrambleGenerator());
+    const [previousScramble, setPreviousScramble] = useState();
     const [holding, setHolding] = useState(false);
     const [previousSolves, setPreviousSolves] = useState([]);
 
@@ -43,19 +44,24 @@ const Timer = () => {
     const toggleTimer = () => {
         if (!timerRunning) {
             setStartTime(new Date());
+            setPreviousScramble(scramble);
+            setScramble(scrambleGenerator());
         }
+
         setTimerRunning(!timerRunning);
     };
 
     const buttonClassNames = classNames(css.startButton, { [css.holding]: holding });
-
     return (
         <div className={css.container}>
             {timerRunning ? (
                 <span className={classNames(css.timer, css.largeTimer)}>{formatTimer(timer)}</span>
             ) : (
                 <>
-                    <div className={css.scramble}>{scramble}</div>
+                    <div className={css.scrambleContainer}>
+                        <div className={css.scramble}>{scramble}</div>
+                        {scramble && <div className={css.previousScramble}>{previousScramble}</div>}
+                    </div>
 
                     <div className={css.timerContainer}>
                         <div className={buttonClassNames} onClick={toggleTimer}>
@@ -89,7 +95,6 @@ const Timer = () => {
                 onKeyEvent={() => {
                     setHolding(false);
                     toggleTimer();
-                    setScramble(scrambleGenerator());
                     if (timer !== 0) {
                         setPreviousSolves(prev => [formatTimer(timer), ...prev]);
                     }
