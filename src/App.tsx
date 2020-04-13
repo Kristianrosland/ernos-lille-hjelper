@@ -1,6 +1,8 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
 import React, { useEffect, useState } from 'react';
+
+import firebase, { firestore } from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 import { HashRouter, Route } from 'react-router-dom';
 import Algorithms from './algorithms/Algorithms';
 import config from './firebase.config';
@@ -9,12 +11,14 @@ import { Solve } from './types/solve-types';
 
 firebase.initializeApp(config);
 let auth: firebase.auth.Auth | undefined;
+let solveDbCollection: firestore.CollectionReference | undefined;
 
 export const AuthContext = React.createContext<AuthState | null>(null);
 export const DataContext = React.createContext<(DataState & DataStateModifiers) | null>(null);
 
 interface DataState {
     sessionSolves: Solve[];
+    storedSolves: Solve[];
 }
 
 interface DataStateModifiers {
@@ -30,6 +34,7 @@ const App = () => {
     const [authState, setAuthState] = useState<AuthState>({ user: null, isLoading: true });
     const [dataState, setDataState] = useState<DataState>({
         sessionSolves: [],
+        storedSolves: [],
     });
 
     const addNewSolve = (solve: Solve) => {
@@ -42,6 +47,21 @@ const App = () => {
 
             firebase.auth().onAuthStateChanged(user => {
                 setAuthState({ user, isLoading: false });
+
+                if (user !== null) {
+                    solveDbCollection = firebase
+                        .firestore()
+                        .collection('solves')
+                        .doc(user.uid)
+                        .collection('all_solves');
+
+                    solveDbCollection.onSnapshot(snapshot => {
+                        setDataState(prev => ({
+                            ...prev,
+                            storedSolves: snapshot.docs.map(doc => doc.data() as Solve),
+                        }));
+                    });
+                }
             });
         }
     }, []);

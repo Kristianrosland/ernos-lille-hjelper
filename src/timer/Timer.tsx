@@ -1,7 +1,8 @@
 import classNames from 'classnames';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import scrambleGenerator from 'rubiks-cube-scramble';
+import { DataContext } from '../App';
 import css from './timer.less';
 
 let interval: NodeJS.Timeout | undefined;
@@ -28,6 +29,9 @@ const Timer = () => {
     const [previousScramble, setPreviousScramble] = useState<string | string[]>();
     const [holding, setHolding] = useState(false);
     const [solves, setSolves] = useState<number[]>([]);
+
+    const ctx = useContext(DataContext);
+    console.log(ctx);
 
     useEffect(() => {
         if (timerRunning) {
