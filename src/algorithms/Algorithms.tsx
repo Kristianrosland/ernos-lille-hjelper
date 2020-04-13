@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import css from './algorithms.less';
-import cases from './cases';
+import cases, { F2LCase } from './cases';
 
 const Algorithms = () => {
     const [query, setQuery] = useState('');
-    const [currentCases, setCurrentCases] = useState([]);
+    const [currentCases, setCurrentCases] = useState<F2LCase[]>([]);
 
-    const onChange = e => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         const inp = e.target.value.toUpperCase();
         setQuery(inp);
 

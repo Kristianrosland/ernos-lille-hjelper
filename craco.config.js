@@ -1,14 +1,14 @@
-const CracoLessPlugin = require("craco-less");
+const CracoLessPlugin = require('craco-less');
 
 module.exports = {
-  plugins: [
-    {
-      plugin: CracoLessPlugin,
-      options: {
-        cssLoaderOptions: {
-          modules: { localIdentName: "[local]_[hash:base64:5]" },
+    plugins: [
+        {
+            plugin: CracoLessPlugin,
+            options: {
+                cssLoaderOptions: {
+                    modules: { localIdentName: '[local]_[hash:base64:5]' },
+                },
+            },
         },
-      },
-    },
-  ],
+    ],
 };

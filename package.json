@@ -1,48 +1,59 @@
 {
-  "name": "rubiks-helper",
-  "version": "0.1.0",
-  "private": true,
-  "homepage": "https://kristianrosland.github.io/ernos-lille-hjelper/",
-  "dependencies": {
-    "@craco/craco": "^5.6.3",
-    "@react-firebase/auth": "^0.2.10",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "autoprefixer": "^9.7.4",
-    "classnames": "^2.2.6",
-    "craco-less": "^1.16.0",
-    "firebase": "^7.10.0",
-    "gh-pages": "^2.2.0",
-    "prettier": "^1.19.1",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.1",
-    "react-keyboard-event-handler": "^1.5.4",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.0",
-    "rubiks-cube-scramble": "^1.0.2"
-  },
-  "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
-    "predeploy": "yarn run build",
-    "deploy": "gh-pages -d build",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+    "name": "rubiks-helper",
+    "version": "0.1.0",
+    "private": true,
+    "homepage": "https://kristianrosland.github.io/ernos-lille-hjelper/",
+    "dependencies": {
+        "@craco/craco": "^5.6.3",
+        "@react-firebase/auth": "^0.2.10",
+        "@testing-library/jest-dom": "^4.2.4",
+        "@testing-library/react": "^9.3.2",
+        "@testing-library/user-event": "^7.1.2",
+        "@types/classnames": "^2.2.10",
+        "autoprefixer": "^9.7.4",
+        "classnames": "^2.2.6",
+        "craco-less": "^1.16.0",
+        "firebase": "^7.10.0",
+        "gh-pages": "^2.2.0",
+        "react": "^16.13.0",
+        "react-dom": "^16.13.1",
+        "react-keyboard-event-handler": "^1.5.4",
+        "react-router-dom": "^5.1.2",
+        "react-scripts": "3.4.0",
+        "rubiks-cube-scramble": "^1.0.2"
+    },
+    "devDependencies": {
+        "@types/node": "^13.11.1",
+        "@types/react": "^16.9.34",
+        "@types/react-dom": "^16.9.6",
+        "@types/react-router-dom": "^5.1.4",
+        "prettier": "^1.19.1",
+        "tslint": "^6.1.1",
+        "tslint-config-prettier": "^1.18.0",
+        "tslint-react": "^4.2.0",
+        "typescript": "^3.8.3"
+    },
+    "scripts": {
+        "start": "craco start",
+        "build": "craco build",
+        "test": "craco test",
+        "predeploy": "yarn run build",
+        "deploy": "gh-pages -d build",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
 }

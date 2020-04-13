@@ -4,11 +4,11 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import scrambleGenerator from 'rubiks-cube-scramble';
 import css from './timer.less';
 
-let interval;
+let interval: NodeJS.Timeout | undefined;
 
-const leadingZero = input => ('0' + input).slice(-2);
+const leadingZero = (input: number) => ('0' + input).slice(-2);
 
-const formatTimer = time => {
+const formatTimer = (time: number) => {
     const minutes = Math.floor(time / 60000);
     const seconds = Math.floor(time / 1000) % 60;
     const milliseconds = Math.floor((time % 1000) / 10);
@@ -19,30 +19,34 @@ const formatTimer = time => {
 };
 
 const Timer = () => {
-    const [startTime, setStartTime] = useState();
-    const [timer, setTimer] = useState(0);
+    const [startTime, setStartTime] = useState<number | undefined>();
+    const [timer, setTimer] = useState<number>(0);
     const [timerRunning, setTimerRunning] = useState(false);
-    const [scramble, setScramble] = useState(scrambleGenerator());
+    const [scramble, setScramble] = useState<string | string[]>(scrambleGenerator());
     const [holding, setHolding] = useState(false);
-    const [previousSolves, setPreviousSolves] = useState([]);
+    const [previousSolves, setPreviousSolves] = useState<number[]>([]);
 
     useEffect(() => {
         if (timerRunning) {
             interval = setInterval(() => {
-                setTimer(new Date() - startTime);
+                setTimer(new Date().getUTCMilliseconds() - (startTime ?? 0));
             }, 10);
         } else {
-            clearInterval(interval);
+            if (interval) {
+                clearInterval(interval);
+            }
         }
 
         if (interval) {
-            return () => clearInterval(interval);
+            return () => clearInterval(interval!);
         }
+
+        return;
     }, [timerRunning, startTime]);
 
     const toggleTimer = () => {
         if (!timerRunning) {
-            setStartTime(new Date());
+            setStartTime(new Date().getUTCMilliseconds());
         }
         setTimerRunning(!timerRunning);
     };
@@ -91,7 +95,7 @@ const Timer = () => {
                     toggleTimer();
                     setScramble(scrambleGenerator());
                     if (timer !== 0) {
-                        setPreviousSolves(prev => [formatTimer(timer), ...prev]);
+                        setPreviousSolves(prev => [timer, ...prev]);
                     }
                 }}
             />
