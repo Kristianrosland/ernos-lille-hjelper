@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import css from './cube-timer.less';
 
 interface Props {
-    newScramble: string | string[];
+    newScramble: string;
     showScramble: boolean;
 }
 
 const Scramble: React.FC<Props> = ({ newScramble, showScramble }) => {
-    const [currentScramble, setCurrentScramble] = useState<string | string[]>();
-    const [previousScramble, setPreviousScramble] = useState<string | string[]>();
+    const [currentScramble, setCurrentScramble] = useState<string>();
+    const [previousScramble, setPreviousScramble] = useState<string>();
 
     useEffect(() => {
         if (newScramble !== currentScramble) {

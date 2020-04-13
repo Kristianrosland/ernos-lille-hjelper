@@ -1,13 +1,14 @@
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
+import { Solve } from '../types/solve-types';
 import css from './cube-timer.less';
 
 let interval: NodeJS.Timeout | undefined;
 
 const leadingZero = (input: number) => ('0' + input).slice(-2);
 
-const now = (): number => new Date().getTime();
+export const now = (): number => new Date().getTime();
 
 const formatTimer = (time: number) => {
     const minutes = Math.floor(time / 60000);
@@ -23,19 +24,19 @@ interface TimerProps {
     timerRunning: boolean;
     onToggleTimerRunning: (running: boolean) => void;
     onNewScramble: () => void;
+    solves: Solve[];
+    addSolve: (solveTime: number) => void;
 }
 
-const Timer: React.FC<TimerProps> = ({ timerRunning, onToggleTimerRunning, onNewScramble }) => {
+const Timer: React.FC<TimerProps> = ({ timerRunning, onToggleTimerRunning, onNewScramble, addSolve, solves }) => {
     const [startTime, setStartTime] = useState<number | undefined>();
-    const [timer, setTimer] = useState<number>(0);
-
+    const [solveTime, setSolveTime] = useState<number>(0);
     const [holding, setHolding] = useState(false);
-    const [solves, setSolves] = useState<number[]>([]);
 
     useEffect(() => {
         if (timerRunning) {
             interval = setInterval(() => {
-                setTimer(now() - (startTime ?? 0));
+                setSolveTime(now() - (startTime ?? 0));
             }, 10);
         } else {
             if (interval) {
@@ -51,15 +52,15 @@ const Timer: React.FC<TimerProps> = ({ timerRunning, onToggleTimerRunning, onNew
     }, [timerRunning, startTime]);
 
     const toggleTimer = () => {
-        if (timer !== 0) {
-            setSolves(prev => [timer, ...prev]);
+        if (solveTime !== 0) {
+            addSolve(solveTime);
         }
 
         if (!timerRunning) {
             setStartTime(now());
+        } else {
             onNewScramble();
         }
-
         onToggleTimerRunning(!timerRunning);
     };
 
@@ -69,18 +70,18 @@ const Timer: React.FC<TimerProps> = ({ timerRunning, onToggleTimerRunning, onNew
     return (
         <div className={css.timerContainer}>
             {timerRunning ? (
-                <span className={classNames(css.timer, css.largeTimer, css.time)}>{formatTimer(timer)}</span>
+                <span className={classNames(css.timer, css.largeTimer, css.time)}>{formatTimer(solveTime)}</span>
             ) : (
                 <>
                     <div className={buttonClassNames} onClick={toggleTimer}>
                         <i className={classNames('fas fa-hand-paper', css.leftHand)} />
                     </div>
                     <div className={css.solves}>
-                        <span className={classNames(css.timer, css.time)}>{formatTimer(timer)}</span>
+                        <span className={classNames(css.timer, css.time)}>{formatTimer(solveTime)}</span>
 
                         <div className={classNames(css.previousSolves, css.time)}>
                             {previousSolves.map((previousSolve, index) => (
-                                <span key={index}>{formatTimer(previousSolve)}</span>
+                                <span key={index}>{formatTimer(previousSolve.time)}</span>
                             ))}
                         </div>
                     </div>
@@ -93,7 +94,7 @@ const Timer: React.FC<TimerProps> = ({ timerRunning, onToggleTimerRunning, onNew
                 handleKeys={['space']}
                 onKeyEvent={() => {
                     setHolding(true);
-                    setTimer(0);
+                    setSolveTime(0);
                 }}
             />
             <KeyboardEventHandler

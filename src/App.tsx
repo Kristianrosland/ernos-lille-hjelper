@@ -11,7 +11,10 @@ firebase.initializeApp(config);
 let auth: firebase.auth.Auth | undefined;
 
 export const AuthContext = React.createContext<AuthState | null>(null);
-export const DataContext = React.createContext<(DataState & DataStateModifiers) | null>(null);
+export const DataContext = React.createContext<DataState & DataStateModifiers>({
+    sessionSolves: [],
+    addNewSolve: () => {},
+});
 
 interface DataState {
     sessionSolves: Solve[];
