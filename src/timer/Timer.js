@@ -25,7 +25,7 @@ const Timer = () => {
     const [scramble, setScramble] = useState(scrambleGenerator());
     const [previousScramble, setPreviousScramble] = useState();
     const [holding, setHolding] = useState(false);
-    const [previousSolves, setPreviousSolves] = useState([]);
+    const [solves, setSolves] = useState([]);
 
     useEffect(() => {
         if (timerRunning) {
@@ -42,6 +42,10 @@ const Timer = () => {
     }, [timerRunning, startTime]);
 
     const toggleTimer = () => {
+        if (timer !== 0) {
+            setSolves(prev => [timer, ...prev]);
+        }
+
         if (!timerRunning) {
             setStartTime(new Date());
             setPreviousScramble(scramble);
@@ -52,10 +56,11 @@ const Timer = () => {
     };
 
     const buttonClassNames = classNames(css.startButton, { [css.holding]: holding });
+    const previousSolves = solves.slice(1);
     return (
         <div className={css.container}>
             {timerRunning ? (
-                <span className={classNames(css.timer, css.largeTimer)}>{formatTimer(timer)}</span>
+                <span className={classNames(css.timer, css.largeTimer, css.time)}>{formatTimer(timer)}</span>
             ) : (
                 <>
                     <div className={css.scrambleContainer}>
@@ -67,13 +72,14 @@ const Timer = () => {
                         <div className={buttonClassNames} onClick={toggleTimer}>
                             <i className={classNames('fas fa-hand-paper', css.leftHand)} />
                         </div>
-                        <div className={css.times}>
-                            <span className={css.timer}>{formatTimer(timer)}</span>
-                            {previousSolves.map((previousTime, idx) => (
-                                <span className={css.previousSolve} key={idx}>
-                                    {previousTime}
-                                </span>
-                            ))}
+                        <div className={css.solves}>
+                            <span className={classNames(css.timer, css.time)}>{formatTimer(timer)}</span>
+
+                            <div className={classNames(css.previousSolves, css.time)}>
+                                {previousSolves.map((previousSolve, index) => (
+                                    <span key={index}>{formatTimer(previousSolve)}</span>
+                                ))}
+                            </div>
                         </div>
                         <div className={buttonClassNames} onClick={toggleTimer}>
                             <i className="fas fa-hand-paper" />
@@ -95,9 +101,6 @@ const Timer = () => {
                 onKeyEvent={() => {
                     setHolding(false);
                     toggleTimer();
-                    if (timer !== 0) {
-                        setPreviousSolves(prev => [formatTimer(timer), ...prev]);
-                    }
                 }}
             />
         </div>

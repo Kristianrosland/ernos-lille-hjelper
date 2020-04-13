@@ -11,14 +11,14 @@
 
     box-sizing: border-box;
     background-color: @green;
-    padding-top: 10%;
+    padding-top: 7rem;
 }
 
 .scrambleContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 5rem;
 }
 
 .scramble {
@@ -37,34 +37,41 @@
 .timerContainer {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: start;
     justify-content: center;
     height: 300px;
     width: 80%;
 }
 
-.timer {
-    width: 500px;
-    text-align: center;
-    font-size: 50px;
-    color: @white;
-    font-family: monospace;
-}
-
-.timer.largeTimer {
-    font-size: 100px;
-}
-
-.times {
+.solves {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 2.5rem;
 }
 
-.previousSolve {
+.timer {
+    width: 500px;
+    text-align: center;
+    font-size: 6rem;
+    margin-bottom: 1rem;
+}
+
+.time {
     color: white;
+    font-family: 'Anonymous Pro', monospace;
+}
+
+.timer.largeTimer {
+    padding-top: 7rem;
+    font-size: 8rem;
+}
+
+.previousSolves {
+    display: flex;
+    flex-direction: column;
     opacity: 0.8;
-    font-size: 40px;
+    font-size: 3rem;
 }
 
 .startButton {
