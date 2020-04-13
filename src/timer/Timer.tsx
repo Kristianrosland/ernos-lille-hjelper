@@ -23,13 +23,15 @@ const Timer = () => {
     const [timer, setTimer] = useState<number>(0);
     const [timerRunning, setTimerRunning] = useState(false);
     const [scramble, setScramble] = useState<string | string[]>(scrambleGenerator());
+    const [previousScramble, setPreviousScramble] = useState<string | string[]>();
     const [holding, setHolding] = useState(false);
-    const [previousSolves, setPreviousSolves] = useState<number[]>([]);
+    const [solves, setSolves] = useState<number[]>([]);
 
     useEffect(() => {
         if (timerRunning) {
             interval = setInterval(() => {
-                setTimer(new Date().getUTCMilliseconds() - (startTime ?? 0));
+                console.log(new Date().getMilliseconds());
+                setTimer(new Date().getMilliseconds() - (startTime ?? 0));
             }, 10);
         } else {
             if (interval) {
@@ -45,33 +47,44 @@ const Timer = () => {
     }, [timerRunning, startTime]);
 
     const toggleTimer = () => {
-        if (!timerRunning) {
-            setStartTime(new Date().getUTCMilliseconds());
+        if (timer !== 0) {
+            setSolves(prev => [timer, ...prev]);
         }
+
+        if (!timerRunning) {
+            setStartTime(new Date().getMilliseconds());
+            setPreviousScramble(scramble);
+            setScramble(scrambleGenerator());
+        }
+
         setTimerRunning(!timerRunning);
     };
 
     const buttonClassNames = classNames(css.startButton, { [css.holding]: holding });
-
+    const previousSolves = solves.slice(1);
     return (
         <div className={css.container}>
             {timerRunning ? (
-                <span className={classNames(css.timer, css.largeTimer)}>{formatTimer(timer)}</span>
+                <span className={classNames(css.timer, css.largeTimer, css.time)}>{formatTimer(timer)}</span>
             ) : (
                 <>
-                    <div className={css.scramble}>{scramble}</div>
+                    <div className={css.scrambleContainer}>
+                        <div className={css.scramble}>{scramble}</div>
+                        {scramble && <div className={css.previousScramble}>{previousScramble}</div>}
+                    </div>
 
                     <div className={css.timerContainer}>
                         <div className={buttonClassNames} onClick={toggleTimer}>
                             <i className={classNames('fas fa-hand-paper', css.leftHand)} />
                         </div>
-                        <div className={css.times}>
-                            <span className={css.timer}>{formatTimer(timer)}</span>
-                            {previousSolves.map((previousTime, idx) => (
-                                <span className={css.previousSolve} key={idx}>
-                                    {previousTime}
-                                </span>
-                            ))}
+                        <div className={css.solves}>
+                            <span className={classNames(css.timer, css.time)}>{formatTimer(timer)}</span>
+
+                            <div className={classNames(css.previousSolves, css.time)}>
+                                {previousSolves.map((previousSolve, index) => (
+                                    <span key={index}>{formatTimer(previousSolve)}</span>
+                                ))}
+                            </div>
                         </div>
                         <div className={buttonClassNames} onClick={toggleTimer}>
                             <i className="fas fa-hand-paper" />
@@ -93,10 +106,6 @@ const Timer = () => {
                 onKeyEvent={() => {
                     setHolding(false);
                     toggleTimer();
-                    setScramble(scrambleGenerator());
-                    if (timer !== 0) {
-                        setPreviousSolves(prev => [timer, ...prev]);
-                    }
                 }}
             />
         </div>
