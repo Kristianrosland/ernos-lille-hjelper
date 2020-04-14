@@ -1,5 +1,21 @@
 import { Solve } from './types/solve-types';
 
+export const getFirebaseError = (error: { code: string }) => {
+    switch (error.code) {
+        case 'auth/wrong-password':
+            return 'Feil passord';
+        case 'auth/user-not-found':
+            return 'Brukeren finnes ikke';
+        case 'auth/invalid-email':
+            return 'Ugyldig epostadresse';
+        case 'auth/weak-password':
+            return 'For svakt passord!';
+        default:
+            console.log(error.code);
+            return 'Oops.. Noe gikk galt!';
+    }
+};
+
 export const solveConverter = {
     toFirestore: (solve: Solve) => ({
         time: solve.time,
