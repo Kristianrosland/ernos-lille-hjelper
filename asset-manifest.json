@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/ernos-lille-hjelper/static/css/main.ade1c81f.chunk.css",
-    "main.js": "/ernos-lille-hjelper/static/js/main.e8794d57.chunk.js",
-    "main.js.map": "/ernos-lille-hjelper/static/js/main.e8794d57.chunk.js.map",
+    "main.css": "/ernos-lille-hjelper/static/css/main.2a38698d.chunk.css",
+    "main.js": "/ernos-lille-hjelper/static/js/main.baf0b36b.chunk.js",
+    "main.js.map": "/ernos-lille-hjelper/static/js/main.baf0b36b.chunk.js.map",
     "runtime-main.js": "/ernos-lille-hjelper/static/js/runtime-main.1f7232ff.js",
     "runtime-main.js.map": "/ernos-lille-hjelper/static/js/runtime-main.1f7232ff.js.map",
-    "static/js/2.4e727c73.chunk.js": "/ernos-lille-hjelper/static/js/2.4e727c73.chunk.js",
-    "static/js/2.4e727c73.chunk.js.map": "/ernos-lille-hjelper/static/js/2.4e727c73.chunk.js.map",
+    "static/js/2.da564e94.chunk.js": "/ernos-lille-hjelper/static/js/2.da564e94.chunk.js",
+    "static/js/2.da564e94.chunk.js.map": "/ernos-lille-hjelper/static/js/2.da564e94.chunk.js.map",
     "index.html": "/ernos-lille-hjelper/index.html",
-    "precache-manifest.fe7ca5d703cda553562a67bc09b0dd41.js": "/ernos-lille-hjelper/precache-manifest.fe7ca5d703cda553562a67bc09b0dd41.js",
+    "precache-manifest.c9ed58eb84c809aa2a50360d10a7176f.js": "/ernos-lille-hjelper/precache-manifest.c9ed58eb84c809aa2a50360d10a7176f.js",
     "service-worker.js": "/ernos-lille-hjelper/service-worker.js",
-    "static/css/main.ade1c81f.chunk.css.map": "/ernos-lille-hjelper/static/css/main.ade1c81f.chunk.css.map",
-    "static/js/2.4e727c73.chunk.js.LICENSE.txt": "/ernos-lille-hjelper/static/js/2.4e727c73.chunk.js.LICENSE.txt",
+    "static/css/main.2a38698d.chunk.css.map": "/ernos-lille-hjelper/static/css/main.2a38698d.chunk.css.map",
+    "static/js/2.da564e94.chunk.js.LICENSE.txt": "/ernos-lille-hjelper/static/js/2.da564e94.chunk.js.LICENSE.txt",
     "static/media/DD1a.png": "/ernos-lille-hjelper/static/media/DD1a.42a5250c.png",
     "static/media/DD4a.png": "/ernos-lille-hjelper/static/media/DD4a.7e40e810.png",
     "static/media/DD5b.png": "/ernos-lille-hjelper/static/media/DD5b.8523dd28.png",
@@ -26,8 +26,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.1f7232ff.js",
-    "static/js/2.4e727c73.chunk.js",
-    "static/css/main.ade1c81f.chunk.css",
-    "static/js/main.e8794d57.chunk.js"
+    "static/js/2.da564e94.chunk.js",
+    "static/css/main.2a38698d.chunk.css",
+    "static/js/main.baf0b36b.chunk.js"
   ]
 }
