@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/ernos-lille-hjelper/static/css/main.3642e21b.chunk.css",
-    "main.js": "/ernos-lille-hjelper/static/js/main.6be052f9.chunk.js",
-    "main.js.map": "/ernos-lille-hjelper/static/js/main.6be052f9.chunk.js.map",
-    "runtime-main.js": "/ernos-lille-hjelper/static/js/runtime-main.053b4ea0.js",
-    "runtime-main.js.map": "/ernos-lille-hjelper/static/js/runtime-main.053b4ea0.js.map",
-    "static/js/2.c37035cc.chunk.js": "/ernos-lille-hjelper/static/js/2.c37035cc.chunk.js",
-    "static/js/2.c37035cc.chunk.js.map": "/ernos-lille-hjelper/static/js/2.c37035cc.chunk.js.map",
+    "main.css": "/ernos-lille-hjelper/static/css/main.ade1c81f.chunk.css",
+    "main.js": "/ernos-lille-hjelper/static/js/main.e8794d57.chunk.js",
+    "main.js.map": "/ernos-lille-hjelper/static/js/main.e8794d57.chunk.js.map",
+    "runtime-main.js": "/ernos-lille-hjelper/static/js/runtime-main.1f7232ff.js",
+    "runtime-main.js.map": "/ernos-lille-hjelper/static/js/runtime-main.1f7232ff.js.map",
+    "static/js/2.4e727c73.chunk.js": "/ernos-lille-hjelper/static/js/2.4e727c73.chunk.js",
+    "static/js/2.4e727c73.chunk.js.map": "/ernos-lille-hjelper/static/js/2.4e727c73.chunk.js.map",
     "index.html": "/ernos-lille-hjelper/index.html",
-    "precache-manifest.12621115209a851d1e58666387fe460c.js": "/ernos-lille-hjelper/precache-manifest.12621115209a851d1e58666387fe460c.js",
+    "precache-manifest.e73a97f7b3f12bafcb75168b153d06f9.js": "/ernos-lille-hjelper/precache-manifest.e73a97f7b3f12bafcb75168b153d06f9.js",
     "service-worker.js": "/ernos-lille-hjelper/service-worker.js",
-    "static/css/main.3642e21b.chunk.css.map": "/ernos-lille-hjelper/static/css/main.3642e21b.chunk.css.map",
-    "static/js/2.c37035cc.chunk.js.LICENSE.txt": "/ernos-lille-hjelper/static/js/2.c37035cc.chunk.js.LICENSE.txt",
+    "static/css/main.ade1c81f.chunk.css.map": "/ernos-lille-hjelper/static/css/main.ade1c81f.chunk.css.map",
+    "static/js/2.4e727c73.chunk.js.LICENSE.txt": "/ernos-lille-hjelper/static/js/2.4e727c73.chunk.js.LICENSE.txt",
     "static/media/DD1a.png": "/ernos-lille-hjelper/static/media/DD1a.42a5250c.png",
     "static/media/DD4a.png": "/ernos-lille-hjelper/static/media/DD4a.7e40e810.png",
     "static/media/DD5b.png": "/ernos-lille-hjelper/static/media/DD5b.8523dd28.png",
@@ -25,9 +25,9 @@
     "static/media/UU4b.png": "/ernos-lille-hjelper/static/media/UU4b.a4f90bee.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.053b4ea0.js",
-    "static/js/2.c37035cc.chunk.js",
-    "static/css/main.3642e21b.chunk.css",
-    "static/js/main.6be052f9.chunk.js"
+    "static/js/runtime-main.1f7232ff.js",
+    "static/js/2.4e727c73.chunk.js",
+    "static/css/main.ade1c81f.chunk.css",
+    "static/js/main.e8794d57.chunk.js"
   ]
 }
