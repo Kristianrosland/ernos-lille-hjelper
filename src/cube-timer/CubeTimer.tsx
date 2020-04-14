@@ -13,7 +13,7 @@ const CubeTimer = () => {
     const { sessionSolves, addNewSolve } = useContext(DataContext);
 
     return (
-        <div className={css.container}>
+        <div className={css.cubeTimerContainer}>
             <Scramble newScramble={scramble} showScramble={!timerRunning} />
 
             <Timer
@@ -21,9 +21,7 @@ const CubeTimer = () => {
                 onToggleTimerRunning={setTimerRunning}
                 onNewScramble={() => setScramble(newScramle)}
                 solves={sessionSolves}
-                addSolve={solveTime => {
-                    addNewSolve({ time: solveTime, timestamp: now(), scramble });
-                }}
+                addSolve={solveTime => addNewSolve({ time: solveTime, timestamp: now(), scramble })}
             />
         </div>
     );
