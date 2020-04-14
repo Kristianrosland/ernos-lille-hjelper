@@ -30,6 +30,7 @@ interface TimerProps {
 
 const Timer: React.FC<TimerProps> = ({ timerRunning, onToggleTimerRunning, onNewScramble, addSolve, solves }) => {
     const [startTime, setStartTime] = useState<number | undefined>();
+    const [formattedSolveTime, setFormattedSolveTime] = useState<string>('0.00');
     const [solveTime, setSolveTime] = useState<number>(0);
     const [holding, setHolding] = useState(false);
 
@@ -49,35 +50,73 @@ const Timer: React.FC<TimerProps> = ({ timerRunning, onToggleTimerRunning, onNew
         }
 
         return;
-    }, [timerRunning, startTime]);
+    }, [timerRunning]);
 
-    const toggleTimer = () => {
+    const startTimer = () => {
+        if (timerRunning) {
+            return;
+        }
+
+        setStartTime(now());
+        onToggleTimerRunning(true);
+    };
+
+    const stopTimer = () => {
+        onToggleTimerRunning(false);
+
         if (solveTime !== 0) {
+            setFormattedSolveTime(formatTimer(solveTime));
             addSolve(solveTime);
         }
 
-        if (!timerRunning) {
-            setStartTime(now());
-        } else {
-            onNewScramble();
-        }
-        onToggleTimerRunning(!timerRunning);
+        onNewScramble();
     };
 
     const buttonClassNames = classNames(css.startButton, { [css.holding]: holding });
     const previousSolves = solves.slice(1);
 
+    const startHold = () => {
+        setHolding(true);
+        if (!timerRunning) {
+            setSolveTime(0);
+        }
+    };
+
+    const stopHold = () => {
+        setHolding(false);
+        if (timerRunning) {
+            stopTimer();
+        } else {
+            startTimer();
+        }
+    };
+
     return (
-        <div className={css.timerContainer} onClick={toggleTimer}>
+        <div className={css.timerContainer}>
             {timerRunning ? (
-                <span className={classNames(css.timer, css.largeTimer, css.time)}>{formatTimer(solveTime)}</span>
+                <div
+                    className={css.largeTimer}
+                    onClick={() => {
+                        stopTimer();
+                    }}
+                >
+                    <span className={classNames(css.timer, css.time)}>{formatTimer(solveTime)}</span>
+                </div>
             ) : (
                 <>
                     <div className={buttonClassNames}>
                         <i className={classNames('fas fa-hand-paper', css.leftHand)} />
                     </div>
                     <div className={css.solves}>
-                        <span className={classNames(css.timer, css.time)}>{formatTimer(solveTime)}</span>
+                        <span
+                            className={classNames(css.timer, css.time, { [css.holding]: holding })}
+                            onMouseUp={stopHold}
+                            onMouseDown={startHold}
+                            onTouchStart={startHold}
+                            onTouchEnd={stopHold}
+                        >
+                            {formattedSolveTime}
+                        </span>
 
                         <div className={classNames(css.previousSolves, css.time)}>
                             {previousSolves.map((previousSolve, index) => (
@@ -90,21 +129,8 @@ const Timer: React.FC<TimerProps> = ({ timerRunning, onToggleTimerRunning, onNew
                     </div>
                 </>
             )}
-            <KeyboardEventHandler
-                handleKeys={['space']}
-                onKeyEvent={() => {
-                    setHolding(true);
-                    setSolveTime(0);
-                }}
-            />
-            <KeyboardEventHandler
-                handleKeys={['space']}
-                handleEventType={'keyup'}
-                onKeyEvent={() => {
-                    setHolding(false);
-                    toggleTimer();
-                }}
-            />
+            <KeyboardEventHandler handleKeys={['space']} onKeyEvent={startHold} />
+            <KeyboardEventHandler handleKeys={['space']} handleEventType={'keyup'} onKeyEvent={stopHold} />
         </div>
     );
 };

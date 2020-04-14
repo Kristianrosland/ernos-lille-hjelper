@@ -1,6 +1,6 @@
 @import '../colors.less';
 
-.container {
+.cubeTimerContainer {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -53,6 +53,10 @@
     margin-bottom: 1rem;
 }
 
+.timer.holding {
+    color: @orange;
+}
+
 .time {
     color: white;
     font-family: 'Anonymous Pro', monospace;
@@ -60,6 +64,9 @@
 
 .largeTimer {
     padding-top: 8.5rem;
+    height: 300px;
+    width: 80%;
+    text-align: center;
 }
 
 .previousSolves {
@@ -78,8 +85,13 @@
 }
 
 @media screen and (min-width: 1140px) {
-    .container {
+    .cubeTimerContainer {
         padding-top: 7rem;
+    }
+
+    .handButtonsAndSolveTimeContainer {
+        display: flex;
+        flex-direction: row;
     }
 
     .startButton {
@@ -105,7 +117,7 @@
         width: 500px;
     }
 
-    .largeTimer {
+    .largeTimer .timer {
         font-size: 8rem;
     }
 

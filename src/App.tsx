@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-
 import firebase, { firestore } from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 import Algorithms from './algorithms/Algorithms';
 import CubeTimer from './cube-timer/CubeTimer';
@@ -66,7 +65,6 @@ const App = () => {
 
                 if (user === null) {
                     solveDbCollection = undefined;
-                    auth?.signInWithEmailAndPassword('admin@cubeguru.no', 'vilde og nora');
                 } else {
                     solveDbCollection = firebase
                         .firestore()
