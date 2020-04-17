@@ -50,7 +50,7 @@ const Timer: React.FC<TimerProps> = ({ timerRunning, onToggleTimerRunning, onNew
         }
 
         return;
-    }, [timerRunning]);
+    }, [timerRunning, startTime]);
 
     const startTimer = () => {
         if (timerRunning) {
@@ -97,7 +97,9 @@ const Timer: React.FC<TimerProps> = ({ timerRunning, onToggleTimerRunning, onNew
                 <div
                     className={css.largeTimer}
                     onClick={() => {
-                        stopTimer();
+                        if (now() - (startTime ?? 0) > 1000) {
+                            stopTimer();
+                        }
                     }}
                 >
                     <span className={classNames(css.timer, css.time)}>{formatTimer(solveTime)}</span>
