@@ -105,10 +105,13 @@ const Timer: React.FC<TimerProps> = ({ timerRunning, onToggleTimerRunning, onNew
                         >
                             {formattedSolveTime}
                         </span>
-                        <div className={classNames(css.previousSolves, css.time)}>
-                            {previousSolves.map((previousSolve, index) => (
-                                <span key={index}>{formatTimer(previousSolve.time)}</span>
-                            ))}
+                        <div className={css.previousSolvesContainer}>
+                            <div className={classNames(css.previousSolves, css.time)}>
+                                {previousSolves.map((previousSolve, index) => (
+                                    <span key={index}>{formatTimer(previousSolve.time)}</span>
+                                ))}
+                                <div className={css.fadeOut} />
+                            </div>
                         </div>
                     </div>
                     <div className={buttonClassNames}>

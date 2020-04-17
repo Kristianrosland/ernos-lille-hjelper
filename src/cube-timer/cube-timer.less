@@ -69,18 +69,24 @@
     text-align: center;
 }
 
-.previousSolves:after {
-    background-image: linear-gradient(to top @green 0%, @green 100%);
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+.previousSolvesContainer {
+    position: relative;
 }
 
+.fadeOut {
+    bottom: 0;
+    height: 4em;
+    background: linear-gradient(rgba(255, 255, 255, 0) 0%, @green 100%);
+    background: -moz-linear-gradient(rgba(255, 255, 255, 0) 0%, @green 100%);
+
+    background: -webkit-linear-gradient(rgba(255, 255, 255, 0) 0%, @green 100%);
+    background: -o-linear-gradient(rgba(255, 255, 255, 0) 0%, @green 100%);
+    background: -ms-linear-gradient(rgba(255, 255, 255, 0) 0%, @green 100%);
+
+    position: absolute;
+    width: 100%;
+}
 .previousSolves {
-    position: relative;
     height: 120px;
     display: flex;
     flex-direction: column;
@@ -163,7 +169,7 @@
     }
 
     .previousSolves {
-        height: 210px;
+        height: 320px;
     }
 
     .timerContainer {
