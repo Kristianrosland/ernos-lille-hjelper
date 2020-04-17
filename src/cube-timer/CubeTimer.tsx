@@ -2,8 +2,10 @@ import React, { useContext, useState } from 'react';
 import scrambleGenerator from 'rubiks-cube-scramble';
 import { DataContext } from '../App';
 import css from './cube-timer.less';
+import { now } from './format-time-utils';
 import Scramble from './Scramble';
-import Timer, { now } from './Timer';
+import SessionStats from './SessionStats';
+import Timer from './Timer';
 
 const newScramle = (): string => scrambleGenerator() as string;
 
@@ -14,7 +16,7 @@ const CubeTimer = () => {
 
     return (
         <div className={css.cubeTimerContainer}>
-            <Scramble newScramble={scramble} showScramble={!timerRunning} />
+            {!timerRunning && <Scramble newScramble={scramble} />}
 
             <Timer
                 timerRunning={timerRunning}
@@ -23,6 +25,7 @@ const CubeTimer = () => {
                 solves={sessionSolves}
                 addSolve={solveTime => addNewSolve({ time: solveTime, timestamp: now(), scramble })}
             />
+            {!timerRunning && <SessionStats sessionSolves={sessionSolves} />}
         </div>
     );
 };

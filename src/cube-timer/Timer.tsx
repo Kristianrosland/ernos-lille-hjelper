@@ -3,23 +3,9 @@ import React, { useEffect, useState } from 'react';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { Solve } from '../types/solve-types';
 import css from './cube-timer.less';
+import { formatTimer, now } from './format-time-utils';
 
 let interval: NodeJS.Timeout | undefined;
-
-const leadingZero = (input: number) => ('0' + input).slice(-2);
-
-export const now = (): number => new Date().getTime();
-
-const formatTimer = (time: number) => {
-    const minutes = Math.floor(time / 60000);
-    const seconds = Math.floor(time / 1000) % 60;
-    const milliseconds = Math.floor((time % 1000) / 10);
-
-    return `${minutes > 0 ? minutes + ':' : ''}${minutes > 0 ? leadingZero(seconds) : seconds}.${leadingZero(
-        milliseconds,
-    )}`;
-};
-
 interface TimerProps {
     timerRunning: boolean;
     onToggleTimerRunning: (running: boolean) => void;
@@ -50,7 +36,7 @@ const Timer: React.FC<TimerProps> = ({ timerRunning, onToggleTimerRunning, onNew
         }
 
         return;
-    }, [timerRunning]);
+    }, [timerRunning, startTime]);
 
     const startTimer = () => {
         if (timerRunning) {
@@ -117,7 +103,6 @@ const Timer: React.FC<TimerProps> = ({ timerRunning, onToggleTimerRunning, onNew
                         >
                             {formattedSolveTime}
                         </span>
-
                         <div className={classNames(css.previousSolves, css.time)}>
                             {previousSolves.map((previousSolve, index) => (
                                 <span key={index}>{formatTimer(previousSolve.time)}</span>
