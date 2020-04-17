@@ -5,15 +5,17 @@ import css from './emailAndPasswordForm.less';
 interface Props {
     title: string;
     buttonTitle: string;
-    onSubmit: (email: string, password: string) => Promise<null | string>;
     colorTheme: {
         textColor: string;
         bottomBorder: string;
     };
+    includeUsername?: boolean;
+    onSubmit: (email: string, password: string, username?: string) => Promise<null | string>;
 }
 
-const EmailAndPasswordForm: React.FC<Props> = ({ title, buttonTitle, onSubmit, colorTheme }) => {
+const EmailAndPasswordForm: React.FC<Props> = ({ title, buttonTitle, onSubmit, colorTheme, includeUsername }) => {
     const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [submitting, setSubmitting] = useState(false);
@@ -21,7 +23,7 @@ const EmailAndPasswordForm: React.FC<Props> = ({ title, buttonTitle, onSubmit, c
     const submit = async () => {
         setSubmitting(true);
 
-        const err = await onSubmit(username, password);
+        const err = await onSubmit(email, password, username);
 
         if (err !== null) {
             setError(err);
@@ -32,9 +34,20 @@ const EmailAndPasswordForm: React.FC<Props> = ({ title, buttonTitle, onSubmit, c
     return (
         <form className={css.form} onSubmit={submit}>
             <h1 className={classNames(css.heading, colorTheme.textColor)}>{title}</h1>
+
+            {includeUsername ? (
+                <input
+                    value={username}
+                    onChange={e => setUsername(e.target.value)}
+                    className={classNames(css.input, colorTheme.textColor, colorTheme.bottomBorder)}
+                    type="text"
+                    placeholder="Velg brukernavn.."
+                />
+            ) : null}
+
             <input
-                value={username}
-                onChange={e => setUsername(e.target.value)}
+                value={email}
+                onChange={e => setEmail(e.target.value)}
                 className={classNames(css.input, colorTheme.textColor, colorTheme.bottomBorder)}
                 type="email"
                 placeholder="Epost.."
@@ -52,7 +65,7 @@ const EmailAndPasswordForm: React.FC<Props> = ({ title, buttonTitle, onSubmit, c
             <button
                 type="submit"
                 className={classNames(css.loginButton, colorTheme.textColor)}
-                disabled={username === '' || password === '' || submitting}
+                disabled={email === '' || password === '' || submitting}
             >
                 {buttonTitle}
             </button>

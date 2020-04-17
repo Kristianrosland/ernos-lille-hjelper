@@ -16,7 +16,7 @@ const Register = () => {
 
     return (
         <div className={css.container}>
-            <EmailAndPasswordForm title="Registrer deg" buttonTitle="Ferdig" onSubmit={signUp} colorTheme={{ textColor: css.textColor, bottomBorder: css.bottomBorder }} />
+            <EmailAndPasswordForm title="Registrer deg" buttonTitle="Ferdig" onSubmit={signUp} colorTheme={{ textColor: css.textColor, bottomBorder: css.bottomBorder }} includeUsername={true}/>
         </div>
     );
 };

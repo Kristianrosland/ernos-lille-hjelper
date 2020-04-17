@@ -44,7 +44,7 @@ interface AuthState {
 
 interface AuthStateModifiers {
     signIn: (email: string, password: string) => Promise<string | null>;
-    signUp: (email: string, password: string) => Promise<string | null>;
+    signUp: (email: string, password: string, username?: string) => Promise<string | null>;
 }
 
 const App = () => {
@@ -81,7 +81,12 @@ const App = () => {
 
     const signUp = async (email: string, password: string) => {
         try {
+            // Sjekk om brukernavn finnes fra før
+
             await auth?.createUserWithEmailAndPassword(email, password);
+
+            // Skriv brukernavn til db
+
             return null;
         } catch (err) {
             return getFirebaseError(err);
@@ -117,7 +122,7 @@ const App = () => {
                         })
                         .catch(err => {
                             if (err.message.toLowerCase().includes('quota exceeded')) {
-                                console.error('Firestore kvote exceeded');
+                                console.error('Firestore quota exceeded');
                             } else {
                                 throw err;
                             }
