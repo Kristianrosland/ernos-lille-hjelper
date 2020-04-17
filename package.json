@@ -2,7 +2,7 @@
     "name": "rubiks-helper",
     "version": "0.1.0",
     "private": true,
-    "homepage": "https://kristianrosland.github.io/ernos-lille-hjelper/",
+    "homepage": "https://helenorgekuber.no",
     "dependencies": {
         "@craco/craco": "^5.6.3",
         "@react-firebase/auth": "^0.2.10",
