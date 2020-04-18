@@ -15,6 +15,7 @@ export const AuthContext = createContext<AuthState & AuthStateModifiers>({
     isLoading: false,
     signIn: async () => null,
     signUp: async () => null,
+    signOut: async () => null,
 });
 export const DataContext = createContext<DataState & DataStateModifiers>({
     sessionSolves: [],
@@ -41,13 +42,14 @@ interface DataStateModifiers {
 }
 
 interface AuthState {
-    user: firebase.User | null;
+    user: (firebase.User & { username?: string }) | null;
     isLoading: boolean;
 }
 
 interface AuthStateModifiers {
     signIn: (email: string, password: string) => Promise<string | null>;
     signUp: (email: string, password: string, username?: string) => Promise<string | null>;
+    signOut: () => void;
 }
 
 const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -100,6 +102,41 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         }
     };
 
+    const signOut = () => {
+        auth?.signOut();
+    };
+
+    const onUserSignedIn = (user: firebase.User) => {
+        const solvesCollection = firebase
+            .firestore()
+            .collection('solves')
+            .doc(user.uid);
+
+        allSolvesCollection = solvesCollection.collection('all_solves');
+
+        solvesCollection
+            .get()
+            .then(doc => doc.data())
+            .then(doc => {
+                if (doc && doc.best) {
+                    updateBest(doc.best as Solve & { id: string });
+                }
+            });
+
+        firebase
+            .firestore()
+            .collection('userdata')
+            .doc(user.uid)
+            .get()
+            .then(doc => {
+                const data = doc.data();
+                if (data && 'username' in data) {
+                    const updatedUser = { ...user, username: data.username };
+                    setAuthState(prev => ({ ...prev, user: updatedUser }));
+                }
+            });
+    };
+
     const signUp = async (email: string, password: string, username?: string) => {
         try {
             const existing =
@@ -146,28 +183,14 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
                 if (user === null) {
                     allSolvesCollection = undefined;
                 } else {
-                    const solvesCollection = firebase
-                        .firestore()
-                        .collection('solves')
-                        .doc(user.uid);
-
-                    allSolvesCollection = solvesCollection.collection('all_solves');
-
-                    solvesCollection
-                        .get()
-                        .then(doc => doc.data())
-                        .then(doc => {
-                            if (doc && doc.best) {
-                                updateBest(doc.best as Solve & { id: string });
-                            }
-                        });
+                    onUserSignedIn(user);
                 }
             });
         }
     }, []);
 
     return (
-        <AuthContext.Provider value={{ ...authState, signIn, signUp }}>
+        <AuthContext.Provider value={{ ...authState, signIn, signUp, signOut }}>
             <DataContext.Provider value={{ ...dataState, addNewSolve, removeStoredSolve }}>
                 {children}
             </DataContext.Provider>

@@ -14,6 +14,12 @@ const Register = () => {
         }
     }, [history, user]);
 
+    const goToLoginLink = (
+        <div className={css.goToLoginLink} onClick={() => history.push('/login')}>
+            Har du allerede konto? Gå til innlogging
+        </div>
+    );
+
     return (
         <div className={css.container}>
             <EmailAndPasswordForm
@@ -22,6 +28,7 @@ const Register = () => {
                 onSubmit={signUp}
                 colorTheme={{ textColor: css.textColor, bottomBorder: css.bottomBorder }}
                 includeUsername={true}
+                bottomLink={goToLoginLink}
             />
         </div>
     );

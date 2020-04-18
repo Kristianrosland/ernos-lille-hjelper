@@ -1,15 +1,19 @@
-@import "./colors.less";
+.loginButton {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
 
-.container {
-  width: 100vw;
-  height: 100vh;
+    color: white;
+    font-size: 1rem;
+    text-decoration: underline;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+    &:hover {
+        font-weight: bold;
+    }
 
-  box-sizing: border-box;
-  background-color: @green;
-  padding-top: 10%;
+    cursor: pointer;
+}
+
+.userIcon {
+    margin-right: 0.65rem;
 }
