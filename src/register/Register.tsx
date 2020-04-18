@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { AuthContext } from '../App';
 import EmailAndPasswordForm from '../components/EmailAndPasswordForm';
+import { AuthContext } from '../FirebaseProvider';
 import css from './register.less';
 
 const Register = () => {
@@ -16,7 +16,13 @@ const Register = () => {
 
     return (
         <div className={css.container}>
-            <EmailAndPasswordForm title="Registrer deg" buttonTitle="Ferdig" onSubmit={signUp} colorTheme={{ textColor: css.textColor, bottomBorder: css.bottomBorder }} includeUsername={true}/>
+            <EmailAndPasswordForm
+                title="Registrer deg"
+                buttonTitle="Ferdig"
+                onSubmit={signUp}
+                colorTheme={{ textColor: css.textColor, bottomBorder: css.bottomBorder }}
+                includeUsername={true}
+            />
         </div>
     );
 };

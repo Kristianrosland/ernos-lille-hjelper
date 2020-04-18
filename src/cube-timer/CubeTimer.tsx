@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import scrambleGenerator from 'rubiks-cube-scramble';
-import { DataContext } from '../App';
+import { DataContext } from '../FirebaseProvider';
 import css from './cube-timer.less';
 import Scramble from './Scramble';
 import Timer, { now } from './Timer';

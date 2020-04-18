@@ -11,7 +11,7 @@ export const getFirebaseError = (error: { code: string }) => {
         case 'auth/weak-password':
             return 'For svakt passord!';
         default:
-            console.log(error.code);
+            console.error(error.code);
             return 'Oops.. Noe gikk galt!';
     }
 };

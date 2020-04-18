@@ -22,7 +22,6 @@ const EmailAndPasswordForm: React.FC<Props> = ({ title, buttonTitle, onSubmit, c
 
     const submit = async () => {
         setSubmitting(true);
-
         const err = await onSubmit(email, password, username);
 
         if (err !== null) {
