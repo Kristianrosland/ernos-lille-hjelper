@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import css from './emailAndPasswordForm.less';
 
 interface Props {
@@ -20,7 +20,8 @@ const EmailAndPasswordForm: React.FC<Props> = ({ title, buttonTitle, onSubmit, c
     const [error, setError] = useState<string | null>(null);
     const [submitting, setSubmitting] = useState(false);
 
-    const submit = async () => {
+    const submit = async (e: FormEvent) => {
+        e.preventDefault();
         setSubmitting(true);
         const err = await onSubmit(email, password, username);
 

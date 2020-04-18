@@ -100,18 +100,36 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         }
     };
 
-    const signUp = async (_email: string, _password: string, username?: string) => {
+    const signUp = async (email: string, password: string, username?: string) => {
         try {
-            await firebase
-                .firestore()
-                .collection('userdata')
-                .where('username', '==', username)
-                .get()
-                .then(console.log);
+            const existing =
+                (
+                    await firebase
+                        .firestore()
+                        .collection('userdata')
+                        .where('username', '==', username)
+                        .get()
+                ).docs.length > 0;
 
-            // await auth?.createUserWithEmailAndPassword(email, password);
+            if (existing) {
+                return 'Dette brukernavnet er dessverre opptatt';
+            }
 
-            // Skriv brukernavn til db
+            const res = await auth?.createUserWithEmailAndPassword(email, password);
+
+            if (!res) {
+                return 'Noe gikk galt med opprettelsen av din konto';
+            }
+
+            if (res.user?.uid) {
+                await firebase
+                    .firestore()
+                    .collection('userdata')
+                    .doc(res.user.uid)
+                    .set({
+                        username,
+                    });
+            }
 
             return null;
         } catch (err) {
@@ -124,6 +142,8 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
             auth = firebase.auth();
             auth.onAuthStateChanged(user => {
                 setAuthState({ user, isLoading: false });
+
+                auth?.signOut();
 
                 if (user === null) {
                     allSolvesCollection = undefined;
