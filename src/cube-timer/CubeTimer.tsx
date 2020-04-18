@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import scrambleGenerator from 'rubiks-cube-scramble';
 import { DataContext } from '../FirebaseProvider';
+import LoginLink from '../LoginLink';
 import css from './cube-timer.less';
 import { now } from './format-time-utils';
 import Scramble from './Scramble';
@@ -16,6 +17,7 @@ const CubeTimer = () => {
 
     return (
         <div className={css.cubeTimerContainer}>
+            <LoginLink />
             {!timerRunning && <Scramble newScramble={scramble} />}
 
             <Timer

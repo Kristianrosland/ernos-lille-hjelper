@@ -14,6 +14,12 @@ const Login = () => {
         }
     }, [history, user]);
 
+    const goToRegisterLink = (
+        <div className={css.goToRegisterLink} onClick={() => history.push('/register')}>
+            Har du ikke konto enda? Registrer deg her
+        </div>
+    );
+
     return (
         <div className={css.container}>
             <EmailAndPasswordForm
@@ -21,6 +27,7 @@ const Login = () => {
                 buttonTitle="Logg inn"
                 onSubmit={signIn}
                 colorTheme={{ textColor: css.textColor, bottomBorder: css.bottomBorder }}
+                bottomLink={goToRegisterLink}
             />
         </div>
     );

@@ -9,11 +9,19 @@ interface Props {
         textColor: string;
         bottomBorder: string;
     };
-    includeUsername?: boolean;
     onSubmit: (email: string, password: string, username?: string) => Promise<null | string>;
+    bottomLink?: React.ReactNode;
+    includeUsername?: boolean;
 }
 
-const EmailAndPasswordForm: React.FC<Props> = ({ title, buttonTitle, onSubmit, colorTheme, includeUsername }) => {
+const EmailAndPasswordForm: React.FC<Props> = ({
+    title,
+    buttonTitle,
+    onSubmit,
+    colorTheme,
+    includeUsername,
+    bottomLink,
+}) => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -69,6 +77,8 @@ const EmailAndPasswordForm: React.FC<Props> = ({ title, buttonTitle, onSubmit, c
             >
                 {buttonTitle}
             </button>
+
+            {bottomLink}
         </form>
     );
 };
