@@ -26,23 +26,52 @@ const findBestAverageSolveOfFive = (solves: Solve[]): number => {
 
 interface Props {
     sessionSolves: Solve[];
+    bestSolve: (Solve & { id: string }) | undefined;
 }
 
-const SessionStats: React.FC<Props> = ({ sessionSolves }) => {
-    const bestSolve = findBestSolve(sessionSolves);
-    const worstSolve = findWorstSolve(sessionSolves);
-    const averageSolve = findAverageSolve(sessionSolves);
+const SessionStats: React.FC<Props> = ({ sessionSolves, bestSolve }) => {
+    const bestSolveTime = bestSolve ? bestSolve.time : findBestSolve(sessionSolves);
+    const worstSolveTime = findWorstSolve(sessionSolves);
+    const averageSolveTime = findAverageSolve(sessionSolves);
 
-    const bestAverageOfFive = sessionSolves.length >= 5 ? findBestAverageSolveOfFive(sessionSolves) : null;
+    const bestAverageOfFiveSolveTime =
+        sessionSolves.length >= 5 ? findBestAverageSolveOfFive(sessionSolves) : null;
 
     return (
-        <div className={css.sessionStatsContainer}>
-            <div className={css.heading}>dine tider denne runden</div>
-            <div>beste: {sessionSolves.length > 0 ? formatTimer(bestSolve) : '-'}</div>
-            <div>dårligte: {sessionSolves.length > 1 ? formatTimer(worstSolve) : '-'}</div>
-            <div>gjennomsnitt: {sessionSolves.length > 1 ? formatTimer(averageSolve) : '-'}</div>
-            <div>beste gjennomsnitt av 5: {bestAverageOfFive ? formatTimer(bestAverageOfFive) : '-'}</div>
-        </div>
+        <>
+            <div className={css.statsContainerMobile}>
+                <div className={css.heading}>dine tider denne runden</div>
+                <div>beste: {sessionSolves.length > 0 ? formatTimer(bestSolveTime) : '-'}</div>
+                <div>dårligte: {sessionSolves.length > 1 ? formatTimer(worstSolveTime) : '-'}</div>
+                <div>gjennomsnitt: {sessionSolves.length > 1 ? formatTimer(averageSolveTime) : '-'}</div>
+                <div>
+                    beste gjennomsnitt av 5:{' '}
+                    {bestAverageOfFiveSolveTime ? formatTimer(bestAverageOfFiveSolveTime) : '-'}
+                </div>
+            </div>
+
+            <div className={css.statsContainerDesktop}>
+                <div className={css.hading}>Dine tider</div>
+                <div className={css.statElement}>
+                    <div className={css.statLabel}>beste:</div>
+                    <div className={css.statValue}>
+                        {sessionSolves.length > 0 ? formatTimer(bestSolveTime) : '-'}
+                    </div>
+                </div>
+                <div className={css.statElement}>
+                    <div className={css.statLabel}>dårligste:</div>
+                    <div className={css.statValue}>
+                        {sessionSolves.length > 1 ? formatTimer(worstSolveTime) : '-'}
+                    </div>
+                </div>
+                <div className={css.statElement}>
+                    <div className={css.statLabel}>beste gjennomsnitt av 5:</div>
+                    <div className={css.statValue}>
+                        {bestAverageOfFiveSolveTime ? formatTimer(bestAverageOfFiveSolveTime) : '-'}
+                    </div>
+                </div>
+            </div>
+        </>
     );
 };
 
