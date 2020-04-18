@@ -143,8 +143,6 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
             auth.onAuthStateChanged(user => {
                 setAuthState({ user, isLoading: false });
 
-                auth?.signOut();
-
                 if (user === null) {
                     allSolvesCollection = undefined;
                 } else {
