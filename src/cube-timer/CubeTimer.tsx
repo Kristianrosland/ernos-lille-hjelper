@@ -12,7 +12,7 @@ const newScramle = (): string => scrambleGenerator() as string;
 const CubeTimer = () => {
     const [timerRunning, setTimerRunning] = useState(false);
     const [scramble, setScramble] = useState<string>(newScramle());
-    const { sessionSolves, addNewSolve } = useContext(DataContext);
+    const { sessionSolves, stored, addNewSolve } = useContext(DataContext);
 
     return (
         <div className={css.cubeTimerContainer}>
@@ -25,7 +25,7 @@ const CubeTimer = () => {
                 solves={sessionSolves}
                 addSolve={solveTime => addNewSolve({ time: solveTime, timestamp: now(), scramble })}
             />
-            {!timerRunning && <SessionStats sessionSolves={sessionSolves} />}
+            {!timerRunning && <SessionStats sessionSolves={sessionSolves} bestSolve={stored.best} />}
         </div>
     );
 };
