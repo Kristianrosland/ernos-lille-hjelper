@@ -55,7 +55,7 @@ const SessionStats: React.FC<Props> = ({ sessionSolves, bestSolve }) => {
                 <div className={css.statElement}>
                     <div className={css.statLabel}>beste:</div>
                     <div className={css.statValue}>
-                        {sessionSolves.length > 0 ? formatTimer(bestSolveTime) : '-'}
+                        {sessionSolves.length > 0 || bestSolve ? formatTimer(bestSolveTime) : '-'}
                     </div>
                 </div>
                 <div className={css.statElement}>

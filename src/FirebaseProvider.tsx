@@ -9,6 +9,7 @@ import { Solve } from './types/solve-types';
 firebase.initializeApp(config);
 let auth: firebase.auth.Auth | undefined;
 let allSolvesCollection: firestore.CollectionReference | undefined;
+let solvesCollection: firestore.DocumentReference | undefined;
 
 export const AuthContext = createContext<AuthState & AuthStateModifiers>({
     user: null,
@@ -59,8 +60,18 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         stored: { best: undefined },
     });
 
-    const updateBest = (b: Solve & { id: string }) =>
+    const updateBest = async (b?: Solve & { id: string }) =>
         setDataState(prev => ({ ...prev, stored: { ...prev.stored, best: b } }));
+
+    const storeNewBest = (best?: Solve & { id: string }) => {
+        if (authState.user) {
+            firebase
+                .firestore()
+                .collection('solves')
+                .doc(authState.user.uid)
+                .set({ best: best ?? firebase.firestore.FieldValue.delete() }, { merge: true });
+        }
+    };
 
     const addNewSolve = async (solve: Solve) => {
         setDataState(prev => ({ ...prev, sessionSolves: [solve, ...prev.sessionSolves] }));
@@ -73,23 +84,33 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
             if (dataState.stored.best === undefined || dataState.stored.best.time > solve.time) {
                 updateBest(solveWithId);
-                firebase
-                    .firestore()
-                    .collection('solves')
-                    .doc(authState.user.uid)
-                    .set(
-                        {
-                            best: solveWithId,
-                        },
-                        { merge: true },
-                    );
+                storeNewBest(solveWithId);
             }
         }
     };
 
-    const removeStoredSolve = (id: string) => {
+    const removeStoredSolve = async (id: string) => {
         if (authState.user) {
-            allSolvesCollection?.doc(id).delete();
+            await allSolvesCollection?.doc(id).delete();
+
+            if (dataState.stored.best?.id === id) {
+                allSolvesCollection
+                    ?.orderBy('time', 'asc')
+                    .limit(1)
+                    .get()
+                    .then(snapshot => snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
+                    .then(res => {
+                        if (res.length === 1) {
+                            const newBest = res[0] as Solve & { id: string };
+
+                            updateBest(newBest);
+                            storeNewBest(newBest);
+                        } else {
+                            storeNewBest(undefined);
+                            updateBest(undefined);
+                        }
+                    });
+            }
         }
     };
 
@@ -104,10 +125,11 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
     const signOut = () => {
         auth?.signOut();
+        setDataState(prev => ({ ...prev, stored: { best: undefined } }));
     };
 
     const onUserSignedIn = (user: firebase.User) => {
-        const solvesCollection = firebase
+        solvesCollection = firebase
             .firestore()
             .collection('solves')
             .doc(user.uid);
