@@ -77,6 +77,23 @@
     text-align: center;
 }
 
+.removeSolveButton {
+    border: none;
+    background-color: transparent;
+    padding-left: 20px;
+    outline: none;
+}
+
+.removeSolveIcon {
+    font-size: 2rem;
+    opacity: 0.5;
+}
+
+.removeSolveButton:hover .removeSolveIcon {
+    opacity: 1;
+    color: @red;
+}
+
 .previousSolvesContainer {
     position: relative;
     width: 100%;
@@ -195,6 +212,7 @@
 
     .timer {
         width: 500px;
+        font-size: 6rem;
     }
 
     .largeTimer .timer {

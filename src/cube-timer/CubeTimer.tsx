@@ -14,7 +14,7 @@ const newScramble = (): string => (scrambleGenerator() as string).trim();
 const CubeTimer = () => {
     const params = useParams<{ scramble: string }>();
     const [timerRunning, setTimerRunning] = useState(false);
-    const { sessionSolves, stored, addNewSolve } = useContext(DataContext);
+    const { sessionSolves, stored, addNewSolve, removeStoredSolve } = useContext(DataContext);
 
     const history = useHistory();
 
@@ -41,6 +41,7 @@ const CubeTimer = () => {
                 addSolve={solveTime =>
                     addNewSolve({ time: solveTime, timestamp: now(), scramble: params.scramble })
                 }
+                removeSolve={removeStoredSolve}
             />
 
             {!timerRunning && <SessionStats sessionSolves={sessionSolves} bestSolve={stored.best} />}

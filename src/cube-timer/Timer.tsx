@@ -12,9 +12,17 @@ interface TimerProps {
     onNewScramble: () => void;
     solves: Solve[];
     addSolve: (solveTime: number) => void;
+    removeSolve: (solve: Solve) => void;
 }
 
-const Timer: React.FC<TimerProps> = ({ timerRunning, onToggleTimerRunning, onNewScramble, addSolve, solves }) => {
+const Timer: React.FC<TimerProps> = ({
+    timerRunning,
+    onToggleTimerRunning,
+    onNewScramble,
+    addSolve,
+    removeSolve,
+    solves,
+}) => {
     const [startTime, setStartTime] = useState<number | undefined>();
     const [formattedSolveTime, setFormattedSolveTime] = useState<string>('0.00');
     const [solveTime, setSolveTime] = useState<number>(0);
@@ -59,7 +67,6 @@ const Timer: React.FC<TimerProps> = ({ timerRunning, onToggleTimerRunning, onNew
     };
 
     const buttonClassNames = classNames(css.startButton, { [css.holding]: holding });
-    const previousSolves = solves.slice(1);
 
     const startHold = () => {
         setHolding(true);
@@ -77,6 +84,7 @@ const Timer: React.FC<TimerProps> = ({ timerRunning, onToggleTimerRunning, onNew
         }
     };
 
+    const previousSolves = solves.slice(1);
     return (
         <div className={css.timerContainer}>
             {timerRunning ? (
@@ -108,7 +116,16 @@ const Timer: React.FC<TimerProps> = ({ timerRunning, onToggleTimerRunning, onNew
                         <div className={css.previousSolvesContainer}>
                             <div className={classNames(css.previousSolves, css.time)}>
                                 {previousSolves.map((previousSolve, index) => (
-                                    <span key={index}>{formatTimer(previousSolve.time)}</span>
+                                    <div key={index}>
+                                        <span>{formatTimer(previousSolve.time)}</span>
+                                        <button
+                                            className={css.removeSolveButton}
+                                            onClick={() => removeSolve(previousSolve)}
+                                            type="button"
+                                        >
+                                            <i className={classNames('fas fa-times', css.removeSolveIcon)} />
+                                        </button>
+                                    </div>
                                 ))}
                                 <div className={css.fadeOut} />
                             </div>
