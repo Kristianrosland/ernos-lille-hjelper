@@ -38,9 +38,7 @@
     flex-direction: row;
     align-items: flex-start;
     justify-content: center;
-    width: 80%;
     margin-bottom: 4rem;
-
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
     -khtml-user-select: none; /* Konqueror HTML */
@@ -58,7 +56,7 @@
 
 .timer {
     text-align: center;
-    font-size: 4rem;
+    font-size: 5rem;
     margin-bottom: 1rem;
 }
 
@@ -75,6 +73,7 @@
     padding-top: 8.5rem;
     height: 100vh;
     text-align: center;
+    width: 100%;
 }
 
 .removeSolveButton {
@@ -86,7 +85,8 @@
 
 .removeSolveIcon {
     font-size: 2rem;
-    opacity: 0.5;
+
+    opacity: 0.2;
 }
 
 .removeSolveButton:hover .removeSolveIcon {
@@ -97,12 +97,14 @@
 .previousSolvesContainer {
     position: relative;
     width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 @transparentGreen: rgba(78, 215, 113, 0);
 
 .fadeOut {
-    bottom: 0;
+    bottom: -40px;
     height: 4em;
     background: linear-gradient(@transparentGreen 0%, @green 100%);
     background: -moz-linear-gradient(@transparentGreen 0%, @green 100%);
@@ -117,16 +119,26 @@
 
     position: absolute;
     width: 100%;
+    pointer-events: none;
 }
+
+.fadeOut:hover {
+    pointer-events: none;
+}
+
 .previousSolves {
     height: 155px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     opacity: 0.8;
     font-size: 3rem;
-    overflow: hidden;
-    width: 100%;
+    overflow: scroll;
+    width: auto;
+}
+
+.previousSolves::-webkit-scrollbar {
+    display: none;
 }
 
 .previousSolves span {
@@ -243,6 +255,7 @@
 
     .timerContainer {
         margin-bottom: 5rem;
+        width: 80%;
     }
 
     .statsContainerMobile {

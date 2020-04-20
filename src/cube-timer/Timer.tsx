@@ -113,6 +113,7 @@ const Timer: React.FC<TimerProps> = ({
                         >
                             {formattedSolveTime}
                         </span>
+
                         <div className={css.previousSolvesContainer}>
                             <div className={classNames(css.previousSolves, css.time)}>
                                 {previousSolves.map((previousSolve, index) => (
@@ -120,7 +121,9 @@ const Timer: React.FC<TimerProps> = ({
                                         <span>{formatTimer(previousSolve.time)}</span>
                                         <button
                                             className={css.removeSolveButton}
-                                            onClick={() => removeSolve(previousSolve)}
+                                            onClick={() => {
+                                                removeSolve(previousSolve);
+                                            }}
                                             type="button"
                                         >
                                             <i className={classNames('fas fa-times', css.removeSolveIcon)} />
