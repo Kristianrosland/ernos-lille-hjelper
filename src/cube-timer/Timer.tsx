@@ -104,15 +104,30 @@ const Timer: React.FC<TimerProps> = ({
                         <i className={classNames('fas fa-hand-paper', css.leftHand)} />
                     </div>
                     <div className={css.solves}>
-                        <span
-                            className={classNames(css.timer, css.time, { [css.holding]: holding })}
-                            onMouseUp={stopHold}
-                            onMouseDown={startHold}
-                            onTouchStart={startHold}
-                            onTouchEnd={stopHold}
-                        >
-                            {formattedSolveTime}
-                        </span>
+                        <div className={css.currentSolveTime}>
+                            <span
+                                className={classNames(css.timer, css.time, { [css.holding]: holding })}
+                                onMouseUp={stopHold}
+                                onMouseDown={startHold}
+                                onTouchStart={startHold}
+                                onTouchEnd={stopHold}
+                            >
+                                {formattedSolveTime}
+                            </span>
+                            <button
+                                className={classNames(css.removeSolveButton, {
+                                    [css.show]: solveTime !== 0 && solves.length > 0,
+                                })}
+                                onClick={() => {
+                                    removeSolve(solves[0]);
+                                    setStartTime(0);
+                                    setFormattedSolveTime('0.00');
+                                }}
+                                type="button"
+                            >
+                                <i className={classNames('fas fa-times', css.removeSolveIcon)} />
+                            </button>
+                        </div>
 
                         <div className={css.previousSolvesContainer}>
                             <div className={classNames(css.previousSolves, css.time)}>
