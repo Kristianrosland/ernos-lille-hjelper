@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import scrambleGenerator from 'rubiks-cube-scramble';
 import { DataContext } from '../FirebaseProvider';
 import LoginLink from '../LoginLink';
 import css from './cube-timer.less';
 import { now } from './format-time-utils';
 import Scramble from './Scramble';
+import { generate } from './ScrambleGenerator';
 import SessionStats from './SessionStats';
 import Timer from './Timer';
 
-const newScramble = (): string => (scrambleGenerator() as string).trim();
+const newScramble = (oldScramble: string): string => generate(oldScramble);
 
 const CubeTimer = () => {
     const params = useParams<{ scramble: string }>();
@@ -19,7 +19,7 @@ const CubeTimer = () => {
     const history = useHistory();
 
     const setNewScramble = () => {
-        history.push('/' + newScramble().replace(/ /g, '-'));
+        history.push('/' + newScramble(params.scramble ?? 'test').replace(/ /g, '-'));
     };
 
     useEffect(() => {

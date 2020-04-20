@@ -10,6 +10,7 @@
         "@testing-library/react": "^9.3.2",
         "@testing-library/user-event": "^7.1.2",
         "@types/classnames": "^2.2.10",
+        "@types/seedrandom": "^2.4.28",
         "autoprefixer": "^9.7.4",
         "classnames": "^2.2.6",
         "craco-less": "^1.16.0",
@@ -20,7 +21,8 @@
         "react-keyboard-event-handler": "^1.5.4",
         "react-router-dom": "^5.1.2",
         "react-scripts": "3.4.0",
-        "rubiks-cube-scramble": "^1.0.2"
+        "rubiks-cube-scramble": "^1.0.2",
+        "seedrandom": "^3.0.5"
     },
     "devDependencies": {
         "@types/node": "^13.11.1",
