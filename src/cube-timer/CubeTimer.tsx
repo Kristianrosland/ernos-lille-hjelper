@@ -1,13 +1,12 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-// import { generate } from './ScrambleGenerator';
-import scrambleGenerator from 'rubiks-cube-scramble';
 import seedrandom from 'seedrandom';
 import { DataContext } from '../FirebaseProvider';
 import LoginLink from '../LoginLink';
 import css from './cube-timer.less';
 import { now } from './format-time-utils';
 import Scramble from './Scramble';
+import { generate } from './ScrambleGenerator';
 import SessionStats from './SessionStats';
 import Timer from './Timer';
 
@@ -19,8 +18,15 @@ const CubeTimer = () => {
     const history = useHistory();
 
     const setNewScramble = useCallback(async () => {
-        seedrandom(params.scramble ?? 'test', { global: true });
-        history.push('/' + (scrambleGenerator() as string).trim().replace(/ /g, '-'));
+        if (params.scramble) {
+            seedrandom(params.scramble, { global: true });
+        }
+        history.push(
+            '/scramble/' +
+                generate()
+                    .trim()
+                    .replace(/ /g, '-'),
+        );
     }, [history, params.scramble]);
 
     useEffect(() => {
