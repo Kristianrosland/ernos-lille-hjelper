@@ -54,7 +54,7 @@ const findBestThreeOfFiveAverageSolve = (solves: Solve[]): number => {
 
 interface Props {
     sessionSolves: Solve[];
-    bestSolve: (Solve & { id: string }) | undefined;
+    bestSolve: Solve | undefined;
 }
 
 const SessionStats: React.FC<Props> = ({ sessionSolves, bestSolve }) => {
