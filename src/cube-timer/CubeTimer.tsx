@@ -1,6 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+// import { generate } from './ScrambleGenerator';
 import scrambleGenerator from 'rubiks-cube-scramble';
+import seedrandom from 'seedrandom';
 import { DataContext } from '../FirebaseProvider';
 import LoginLink from '../LoginLink';
 import css from './cube-timer.less';
@@ -9,8 +11,6 @@ import Scramble from './Scramble';
 import SessionStats from './SessionStats';
 import Timer from './Timer';
 
-const newScramble = (): string => (scrambleGenerator() as string).trim();
-
 const CubeTimer = () => {
     const params = useParams<{ scramble: string }>();
     const [timerRunning, setTimerRunning] = useState(false);
@@ -18,15 +18,16 @@ const CubeTimer = () => {
 
     const history = useHistory();
 
-    const setNewScramble = () => {
-        history.push('/' + newScramble().replace(/ /g, '-'));
-    };
+    const setNewScramble = useCallback(async () => {
+        seedrandom(params.scramble ?? 'test', { global: true });
+        history.push('/' + (scrambleGenerator() as string).trim().replace(/ /g, '-'));
+    }, [history, params.scramble]);
 
     useEffect(() => {
         if (params.scramble === undefined) {
             setNewScramble();
         }
-    }, []);
+    }, [params.scramble, setNewScramble]);
 
     return (
         <div className={css.cubeTimerContainer}>

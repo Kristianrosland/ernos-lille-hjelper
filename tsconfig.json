@@ -26,5 +26,5 @@
         "isolatedModules": true
     },
     "exclude": ["node_modules", "build", "public"],
-    "include": ["**/*.ts", "**/*.tsx", "src/serviceWorker.ts", "craco.config.js"]
+    "include": ["**/*.ts", "**/*.tsx", "craco.config.js"]
 }
