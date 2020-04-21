@@ -152,6 +152,15 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
                 }
             });
 
+        allSolvesCollection
+            .orderBy('timestamp', 'desc')
+            .limit(5)
+            .get()
+            .then(snapshot => {
+                console.log(snapshot.docs.length);
+                setDataState(prev => ({ ...prev, sessionSolves: snapshot.docs.map(doc => doc.data() as Solve) }));
+            });
+
         firebase
             .firestore()
             .collection('userdata')
