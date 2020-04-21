@@ -38,7 +38,14 @@ const CubeTimer = () => {
     return (
         <div className={css.cubeTimerContainer}>
             <LoginLink />
-            {!timerRunning && <Scramble newScramble={params.scramble ? params.scramble.replace(/-/g, ' ') : ''} />}
+            {!timerRunning && (
+                <Scramble
+                    newScramble={params.scramble ? params.scramble.replace(/-/g, ' ') : ''}
+                    onPrevScrambleClick={(oldScramble: string) =>
+                        history.push('/scramble/' + oldScramble.replace(/ /g, '-'))
+                    }
+                />
+            )}
 
             <Timer
                 timerRunning={timerRunning}
