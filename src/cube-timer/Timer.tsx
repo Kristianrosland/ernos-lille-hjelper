@@ -80,6 +80,11 @@ const Timer: React.FC<TimerProps> = ({
         onNewScramble();
     };
 
+    const abortSolve = () => {
+        onToggleTimerRunning(false);
+        setSolveTime(0);
+    };
+
     const holdingClasses = {
         [css.holding]: holding && !didHoldLongEnough,
         [css.readyToStart]: holding && didHoldLongEnough,
@@ -114,7 +119,7 @@ const Timer: React.FC<TimerProps> = ({
         }
     };
 
-    const previousSolves = solveTime ? solves.slice(1) : solves;
+    const previousSolves = formattedSolveTime !== '0.00' ? solves.slice(1) : solves;
     return (
         <div className={css.timerContainer}>
             {timerRunning ? (
@@ -126,6 +131,9 @@ const Timer: React.FC<TimerProps> = ({
                         }
                     }}
                 >
+                    <div className={css.abortButton} onClick={abortSolve}>
+                        Esc
+                    </div>
                     <span className={classNames(css.timer, css.time)}>{formatTimer(solveTime)}</span>
                 </div>
             ) : (
@@ -156,6 +164,7 @@ const Timer: React.FC<TimerProps> = ({
                                     removeSolve(solves[0]);
                                     setStartTime(0);
                                     setFormattedSolveTime(INITIAL_SOLVE_TIME);
+                                    setSolveTime(0);
                                 }}
                                 type="button"
                             >
@@ -196,6 +205,7 @@ const Timer: React.FC<TimerProps> = ({
                 handleEventType={'keyup'}
                 onKeyEvent={stopHold}
             />
+            <KeyboardEventHandler handleKeys={['esc']} handleEventType={'keyup'} onKeyEvent={abortSolve} />
             <ReactTooltip id="start-timer-tooltip" effect="solid" type="light" />
         </div>
     );
