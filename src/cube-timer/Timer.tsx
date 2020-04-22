@@ -197,6 +197,7 @@ const Timer: React.FC<TimerProps> = ({
                     >
                         <i className="fas fa-hand-paper" />
                     </div>
+                    <ReactTooltip id="start-timer-tooltip" effect="solid" type="light" />
                 </>
             )}
             <KeyboardEventHandler handleKeys={['space']} onKeyEvent={startHold} />
@@ -206,7 +207,6 @@ const Timer: React.FC<TimerProps> = ({
                 onKeyEvent={stopHold}
             />
             <KeyboardEventHandler handleKeys={['esc']} handleEventType={'keyup'} onKeyEvent={abortSolve} />
-            <ReactTooltip id="start-timer-tooltip" effect="solid" type="light" />
         </div>
     );
 };
