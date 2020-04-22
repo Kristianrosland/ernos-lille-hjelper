@@ -59,7 +59,6 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         stored: { best: undefined },
     });
 
-<<<<<<< Updated upstream
     const updateBest = (bestSolve: Solve | undefined) =>
         setDataState(prev => ({ ...prev, stored: { ...prev.stored, best: bestSolve } }));
 
@@ -72,10 +71,6 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
                 .set({ best: bestSolve ?? firebase.firestore.FieldValue.delete() }, { merge: true });
         }
     };
-=======
-    const updateBest = (bestSolve: Solve) =>
-        setDataState(prev => ({ ...prev, stored: { ...prev.stored, best: bestSolve } }));
->>>>>>> Stashed changes
 
     const addNewSolve = async (solve: Solve) => {
         setDataState(prev => ({ ...prev, sessionSolves: [solve, ...prev.sessionSolves] }));
@@ -93,17 +88,12 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         }
     };
 
-<<<<<<< Updated upstream
     const removeStoredSolve = async (solveToRemove: Solve) => {
-=======
-    const removeStoredSolve = (solveToRemove: Solve) => {
->>>>>>> Stashed changes
         setDataState({
             ...dataState,
             sessionSolves: dataState.sessionSolves.filter(solve => solve.timestamp !== solveToRemove.timestamp),
         });
 
-<<<<<<< Updated upstream
         if (authState.user && allSolvesCollection) {
             await allSolvesCollection
                 .where('timestamp', '==', solveToRemove.timestamp)
@@ -128,13 +118,6 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
                         }
                     });
             }
-=======
-        if (authState.user && solveToRemove.id) {
-            allSolvesCollection
-                ?.where('timestamp', '==', solveToRemove.timestamp)
-                .get()
-                .then(snapshot => snapshot.docs.forEach(doc => doc.ref.delete()));
->>>>>>> Stashed changes
         }
     };
 

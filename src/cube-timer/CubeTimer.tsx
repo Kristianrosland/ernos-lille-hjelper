@@ -14,7 +14,6 @@ const newScramble = (): string => (scrambleGenerator() as string).trim();
 const CubeTimer = () => {
     const params = useParams<{ scramble: string }>();
     const [timerRunning, setTimerRunning] = useState(false);
-<<<<<<< Updated upstream
     const { sessionSolves, stored, addNewSolve, removeStoredSolve } = useContext(DataContext);
 
     const history = useHistory();
@@ -28,11 +27,6 @@ const CubeTimer = () => {
             setNewScramble();
         }
     }, []);
-=======
-    const [scramble, setScramble] = useState<string>(newScramle());
-    const { sessionSolves, stored, addNewSolve, removeStoredSolve } = useContext(DataContext);
-    console.log(sessionSolves);
->>>>>>> Stashed changes
 
     return (
         <div className={css.cubeTimerContainer}>
@@ -44,13 +38,9 @@ const CubeTimer = () => {
                 onToggleTimerRunning={setTimerRunning}
                 onNewScramble={() => setNewScramble()}
                 solves={sessionSolves}
-<<<<<<< Updated upstream
                 addSolve={solveTime =>
                     addNewSolve({ time: solveTime, timestamp: now(), scramble: params.scramble })
                 }
-=======
-                addSolve={solveTime => addNewSolve({ time: solveTime, timestamp: now(), scramble })}
->>>>>>> Stashed changes
                 removeSolve={removeStoredSolve}
             />
 
