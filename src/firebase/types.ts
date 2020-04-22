@@ -7,6 +7,7 @@ export interface DataState {
 
 export interface StoredData {
     best: Solve | undefined;
+    lastFive: Solve[];
 }
 
 export interface DataStateModifiers {
