@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
+import ReactTooltip from 'react-tooltip';
 import { Solve } from '../types/solve-types';
 import css from './cube-timer.less';
 import { formatTimer, now } from './format-time-utils';
@@ -9,12 +10,13 @@ let interval: NodeJS.Timeout | undefined;
 interface TimerProps {
     timerRunning: boolean;
     onToggleTimerRunning: (running: boolean) => void;
-    onNewScramble: () => void;
+    onNewScramble: () => Promise<void>;
     solves: Solve[];
-    addSolve: (solveTime: number) => void;
+    addSolve: (solveTime: number) => Promise<void>;
     removeSolve: (solve: Solve) => void;
 }
 
+const tooltipText = 'Hold inne space for å starte';
 const MINIMUM_HOLD_TIME = 500; // Milliseconds to hold before release
 const INITIAL_SOLVE_TIME = '0.00';
 
@@ -78,6 +80,11 @@ const Timer: React.FC<TimerProps> = ({
         onNewScramble();
     };
 
+    const abortSolve = () => {
+        onToggleTimerRunning(false);
+        setSolveTime(0);
+    };
+
     const holdingClasses = {
         [css.holding]: holding && !didHoldLongEnough,
         [css.readyToStart]: holding && didHoldLongEnough,
@@ -112,7 +119,7 @@ const Timer: React.FC<TimerProps> = ({
         }
     };
 
-    const previousSolves = solveTime ? solves.slice(1) : solves;
+    const previousSolves = formattedSolveTime !== INITIAL_SOLVE_TIME ? solves.slice(1) : solves;
     return (
         <div className={css.timerContainer}>
             {timerRunning ? (
@@ -124,11 +131,18 @@ const Timer: React.FC<TimerProps> = ({
                         }
                     }}
                 >
+                    <div className={css.abortButton} onClick={abortSolve}>
+                        Esc
+                    </div>
                     <span className={classNames(css.timer, css.time)}>{formatTimer(solveTime)}</span>
                 </div>
             ) : (
                 <>
-                    <div className={classNames(css.startButton, holdingClasses)}>
+                    <div
+                        className={classNames(css.startButton, holdingClasses)}
+                        data-for="start-timer-tooltip"
+                        data-tip={tooltipText}
+                    >
                         <i className={classNames('fas fa-hand-paper', css.leftHand)} />
                     </div>
                     <div className={css.solves}>
@@ -150,6 +164,7 @@ const Timer: React.FC<TimerProps> = ({
                                     removeSolve(solves[0]);
                                     setStartTime(0);
                                     setFormattedSolveTime(INITIAL_SOLVE_TIME);
+                                    setSolveTime(0);
                                 }}
                                 type="button"
                             >
@@ -175,13 +190,23 @@ const Timer: React.FC<TimerProps> = ({
                             </div>
                         </div>
                     </div>
-                    <div className={classNames(css.startButton, holdingClasses)}>
+                    <div
+                        className={classNames(css.startButton, holdingClasses)}
+                        data-for="start-timer-tooltip"
+                        data-tip={tooltipText}
+                    >
                         <i className="fas fa-hand-paper" />
                     </div>
                 </>
             )}
             <KeyboardEventHandler handleKeys={['space']} onKeyEvent={startHold} />
-            <KeyboardEventHandler handleKeys={['space']} handleEventType={'keyup'} onKeyEvent={stopHold} />
+            <KeyboardEventHandler
+                handleKeys={['space', 'alphanumeric']}
+                handleEventType={'keyup'}
+                onKeyEvent={stopHold}
+            />
+            <KeyboardEventHandler handleKeys={['esc']} handleEventType={'keyup'} onKeyEvent={abortSolve} />
+            <ReactTooltip id="start-timer-tooltip" effect="solid" type="light" />
         </div>
     );
 };

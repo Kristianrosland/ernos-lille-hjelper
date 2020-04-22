@@ -18,10 +18,8 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [authState, setAuthState] = useState<AuthState>({ user: null, isLoading: true });
     const [dataState, setDataState] = useState<DataState>({
         sessionSolves: [],
-        stored: { best: undefined, lastFive: [] },
+        stored: { best: undefined },
     });
-
-    console.log(dataState);
 
     const updateBest = (bestSolve: Solve | undefined) =>
         setDataState(prev => ({ ...prev, stored: { ...prev.stored, best: bestSolve } }));
@@ -73,7 +71,7 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         }
     };
 
-    const signOut = () => {
+    const signOut = async () => {
         auth?.signOut();
         setDataState(prev => ({ ...prev, stored: defaultDataState.stored }));
     };
@@ -92,7 +90,7 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
             .then(res =>
                 setDataState(prev => ({
                     ...prev,
-                    stored: { ...prev.stored, lastFive: res.docs.map(d => d.data() as Solve) },
+                    sessionSolves: res.docs.map(d => d.data() as Solve),
                 })),
             );
 
@@ -135,10 +133,9 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         if (!auth) {
             auth = firebase.auth();
             auth.onAuthStateChanged(user => {
-                setAuthState({ user, isLoading: false });
-
                 if (user === null) {
                     allSolvesCollection = undefined;
+                    setAuthState({ user: null, isLoading: false });
                 } else {
                     onUserSignedIn(user);
                 }
