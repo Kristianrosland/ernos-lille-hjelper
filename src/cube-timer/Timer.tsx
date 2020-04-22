@@ -16,6 +16,7 @@ interface TimerProps {
 }
 
 const MINIMUM_HOLD_TIME = 500; // Milliseconds to hold before release
+const INITIAL_SOLVE_TIME = '0.00';
 
 const Timer: React.FC<TimerProps> = ({
     timerRunning,
@@ -26,7 +27,7 @@ const Timer: React.FC<TimerProps> = ({
     solves,
 }) => {
     const [startTime, setStartTime] = useState<number | undefined>();
-    const [formattedSolveTime, setFormattedSolveTime] = useState<string>('0.00');
+    const [formattedSolveTime, setFormattedSolveTime] = useState<string>(INITIAL_SOLVE_TIME);
     const [solveTime, setSolveTime] = useState<number>(0);
     const [holding, setHolding] = useState(false);
     const [didHoldLongEnough, setDidHoldLongEnough] = useState(false);
@@ -143,12 +144,12 @@ const Timer: React.FC<TimerProps> = ({
                             </span>
                             <button
                                 className={classNames(css.removeSolveButton, {
-                                    [css.show]: solveTime !== 0 && solves.length > 0,
+                                    [css.show]: formattedSolveTime !== INITIAL_SOLVE_TIME && solves.length > 0,
                                 })}
                                 onClick={() => {
                                     removeSolve(solves[0]);
                                     setStartTime(0);
-                                    setFormattedSolveTime('0.00');
+                                    setFormattedSolveTime(INITIAL_SOLVE_TIME);
                                 }}
                                 type="button"
                             >
