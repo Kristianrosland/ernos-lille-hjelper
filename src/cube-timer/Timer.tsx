@@ -111,7 +111,7 @@ const Timer: React.FC<TimerProps> = ({
         }
     };
 
-    const previousSolves = solves.slice(1);
+    const previousSolves = solveTime ? solves.slice(1) : solves;
     return (
         <div className={css.timerContainer}>
             {timerRunning ? (

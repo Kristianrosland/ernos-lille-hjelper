@@ -37,6 +37,7 @@ export const defaultDataState = {
     sessionSolves: [],
     stored: {
         best: undefined,
+        lastFive: [],
     },
 
     addNewSolve: () => {},
