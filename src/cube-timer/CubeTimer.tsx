@@ -6,9 +6,9 @@ import Menu from '../components/menu/Menu';
 import Scramble from '../components/scramble/Scramble';
 import { generate } from '../components/scramble/ScrambleGenerator';
 import SessionStats from '../components/stats/SessionStats';
+import { now } from '../components/timer/format-time-utils';
 import Timer from '../components/timer/Timer';
 import css from './cube-timer.less';
-import { now } from './format-time-utils';
 
 const CubeTimer = () => {
     const params = useParams<{ scramble: string }>();
