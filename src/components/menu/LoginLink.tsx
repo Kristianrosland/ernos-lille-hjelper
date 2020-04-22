@@ -1,8 +1,7 @@
-import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import css from './app.less';
-import { AuthContext } from './firebase/FirebaseProvider';
+import { AuthContext } from '../../firebase/FirebaseProvider';
+import css from './menu.less';
 
 const LoginLink = () => {
     const { user, isLoading, signOut } = useContext(AuthContext);
@@ -19,10 +18,9 @@ const LoginLink = () => {
     };
 
     return isLoading ? null : (
-        <div className={css.loginButton} onClick={onClick}>
-            <i className={classNames('fas fa-user', css.userIcon)} />
-            {user ? user.username : 'Logg inn'}
-        </div>
+        <button className={css.loginButton} onClick={onClick}>
+            {user ? 'Logg ut' : 'Logg inn'}
+        </button>
     );
 };
 

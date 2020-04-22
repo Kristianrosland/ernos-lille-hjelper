@@ -1,0 +1,36 @@
+@import '../less-variables/colors.less';
+
+.menu {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    color: @white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginButton {
+    border: none;
+    background-color: transparent;
+    outline: none;
+
+    font-size: 1rem;
+    color: @white;
+    text-decoration: underline;
+
+    &:hover {
+        font-weight: bold;
+    }
+
+    cursor: pointer;
+}
+
+.userName {
+    margin-right: 0.65rem;
+}
+
+.userIcon {
+    margin-right: 0.25rem;
+}
