@@ -1,5 +1,3 @@
-import { Solve } from './types/solve-types';
-
 export const getFirebaseError = (error: { code: string }) => {
     switch (error.code) {
         case 'auth/wrong-password':
@@ -16,18 +14,6 @@ export const getFirebaseError = (error: { code: string }) => {
     }
 };
 
-export const solveConverter = {
-    toFirestore: (solve: Solve) => ({
-        time: solve.time,
-        timestamp: solve.timestamp,
-        scramble: solve.scramble,
-    }),
-    fromFirestore: (snapshot: any, options: any): Solve => {
-        const data = snapshot.data(options);
-        return { time: data.time, timestamp: data.timestamp, scramble: data.scramble };
-    },
-};
-
 export const config = {
     apiKey: 'AIzaSyAW_PdA6o5ygKubwsxaQfJ22dgWE5fA41U',
     authDomain: 'cubeguru-79b7d.firebaseapp.com',
@@ -37,4 +23,22 @@ export const config = {
     messagingSenderId: '1042814909264',
     appId: '1:1042814909264:web:e79fa88d14f9f4669c4a55',
     measurementId: 'G-Z2GMHWJ2NG',
+};
+
+export const defaultAuthState = {
+    user: null,
+    isLoading: false,
+    signIn: async () => null,
+    signUp: async () => null,
+    signOut: async () => null,
+};
+
+export const defaultDataState = {
+    sessionSolves: [],
+    stored: {
+        best: undefined,
+    },
+
+    addNewSolve: () => {},
+    removeStoredSolve: () => {},
 };

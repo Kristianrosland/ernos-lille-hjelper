@@ -15,6 +15,8 @@ interface TimerProps {
     removeSolve: (solve: Solve) => void;
 }
 
+const MINIMUM_HOLD_TIME = 500; // Milliseconds to hold before release
+
 const Timer: React.FC<TimerProps> = ({
     timerRunning,
     onToggleTimerRunning,
@@ -27,6 +29,7 @@ const Timer: React.FC<TimerProps> = ({
     const [formattedSolveTime, setFormattedSolveTime] = useState<string>('0.00');
     const [solveTime, setSolveTime] = useState<number>(0);
     const [holding, setHolding] = useState(false);
+    const [didHoldLongEnough, setDidHoldLongEnough] = useState(false);
 
     useEffect(() => {
         if (timerRunning) {
@@ -46,6 +49,14 @@ const Timer: React.FC<TimerProps> = ({
         return;
     }, [timerRunning, startTime]);
 
+    useEffect(() => {
+        if (didHoldLongEnough) {
+            if (!holding) {
+                setDidHoldLongEnough(false);
+            }
+        }
+    }, [didHoldLongEnough, holding, setDidHoldLongEnough]);
+
     const startTimer = () => {
         if (timerRunning) {
             return;
@@ -55,7 +66,7 @@ const Timer: React.FC<TimerProps> = ({
         onToggleTimerRunning(true);
     };
 
-    const stopTimer = () => {
+    const stopTimer = async () => {
         onToggleTimerRunning(false);
 
         if (solveTime !== 0) {
@@ -66,10 +77,23 @@ const Timer: React.FC<TimerProps> = ({
         onNewScramble();
     };
 
-    const buttonClassNames = classNames(css.startButton, { [css.holding]: holding });
+    const holdingClasses = {
+        [css.holding]: holding && !didHoldLongEnough,
+        [css.readyToStart]: holding && didHoldLongEnough,
+    };
 
     const startHold = () => {
+        if (holding) {
+            return;
+        }
+
+        setDidHoldLongEnough(false);
         setHolding(true);
+
+        setTimeout(() => {
+            setDidHoldLongEnough(true);
+        }, MINIMUM_HOLD_TIME);
+
         if (!timerRunning) {
             setSolveTime(0);
         }
@@ -80,7 +104,10 @@ const Timer: React.FC<TimerProps> = ({
         if (timerRunning) {
             stopTimer();
         } else {
-            startTimer();
+            if (didHoldLongEnough) {
+                startTimer();
+                setDidHoldLongEnough(false);
+            }
         }
     };
 
@@ -100,13 +127,13 @@ const Timer: React.FC<TimerProps> = ({
                 </div>
             ) : (
                 <>
-                    <div className={buttonClassNames}>
+                    <div className={classNames(css.startButton, holdingClasses)}>
                         <i className={classNames('fas fa-hand-paper', css.leftHand)} />
                     </div>
                     <div className={css.solves}>
                         <div className={css.currentSolveTime}>
                             <span
-                                className={classNames(css.timer, css.time, { [css.holding]: holding })}
+                                className={classNames(css.timer, css.time, holdingClasses)}
                                 onMouseUp={stopHold}
                                 onMouseDown={startHold}
                                 onTouchStart={startHold}
@@ -147,7 +174,7 @@ const Timer: React.FC<TimerProps> = ({
                             </div>
                         </div>
                     </div>
-                    <div className={buttonClassNames}>
+                    <div className={classNames(css.startButton, holdingClasses)}>
                         <i className="fas fa-hand-paper" />
                     </div>
                 </>

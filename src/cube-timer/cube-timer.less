@@ -11,7 +11,7 @@
     min-height: 100vh;
 
     box-sizing: border-box;
-    background-color: @green;
+    background-color: @blue;
     padding: 4rem 2rem 0 2rem;
 }
 
@@ -60,6 +60,10 @@
     color: @orange;
 }
 
+.timer.readyToStart {
+    color: @green;
+}
+
 .time {
     color: white;
     font-family: 'Anonymous Pro', monospace;
@@ -104,21 +108,17 @@
     justify-content: center;
 }
 
-@transparentGreen: rgba(78, 215, 113, 0);
+@transparentBlue: rgba(46, 110, 191, 0);
 
 .fadeOut {
     bottom: -40px;
     height: 4em;
-    background: linear-gradient(@transparentGreen 0%, @green 100%);
-    background: -moz-linear-gradient(@transparentGreen 0%, @green 100%);
-    background: -webkit-linear-gradient(@transparentGreen 0%, @green 100%);
-    background: -webkit-gradient(
-        linear,
-        color-stop(0%, @transparentGreen),
-        color-stop(100%, rgba(78, 215, 113, 1))
-    );
-    background: -o-linear-gradient(@transparentGreen 0%, @green 100%);
-    background: -ms-linear-gradient(@transparentGreen 0%, @green 100%);
+    background: linear-gradient(@transparentBlue 0%, @blue 100%);
+    background: -moz-linear-gradient(@transparentBlue 0%, @blue 100%);
+    background: -webkit-linear-gradient(@transparentBlue 0%, @blue 100%);
+    background: -webkit-gradient(linear, color-stop(0%, @transparentBlue), color-stop(100%, @blue));
+    background: -o-linear-gradient(@transparentBlue 0%, @blue 100%);
+    background: -ms-linear-gradient(@transparentBlue 0%, @blue 100%);
 
     position: absolute;
     width: 100%;
@@ -170,7 +170,7 @@
 @media screen and (min-width: 1140px) {
     .statsContainerDesktop {
         display: flex;
-        background-color: @green;
+        background-color: @blue;
         height: 70px;
         width: 100%;
         position: fixed;
@@ -223,6 +223,10 @@
 
     .startButton.holding {
         background-color: @orange;
+    }
+
+    .startButton.readyToStart {
+        background-color: @green;
     }
 
     .timer {
