@@ -10,9 +10,9 @@ let interval: NodeJS.Timeout | undefined;
 interface TimerProps {
     timerRunning: boolean;
     onToggleTimerRunning: (running: boolean) => void;
-    onNewScramble: () => void;
+    onNewScramble: () => Promise<void>;
     solves: Solve[];
-    addSolve: (solveTime: number) => void;
+    addSolve: (solveTime: number) => Promise<void>;
     removeSolve: (solve: Solve) => void;
 }
 
@@ -119,7 +119,7 @@ const Timer: React.FC<TimerProps> = ({
         }
     };
 
-    const previousSolves = formattedSolveTime !== '0.00' ? solves.slice(1) : solves;
+    const previousSolves = formattedSolveTime !== INITIAL_SOLVE_TIME ? solves.slice(1) : solves;
     return (
         <div className={css.timerContainer}>
             {timerRunning ? (

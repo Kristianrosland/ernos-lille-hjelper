@@ -50,9 +50,9 @@ const CubeTimer = () => {
             <Timer
                 timerRunning={timerRunning}
                 onToggleTimerRunning={setTimerRunning}
-                onNewScramble={() => setNewScramble()}
+                onNewScramble={async () => setNewScramble()}
                 solves={sessionSolves}
-                addSolve={solveTime =>
+                addSolve={async solveTime =>
                     addNewSolve({ time: solveTime, timestamp: now(), scramble: params.scramble })
                 }
                 removeSolve={removeStoredSolve}

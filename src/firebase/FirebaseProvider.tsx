@@ -71,7 +71,7 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         }
     };
 
-    const signOut = () => {
+    const signOut = async () => {
         auth?.signOut();
         setDataState(prev => ({ ...prev, stored: defaultDataState.stored }));
     };
@@ -133,10 +133,9 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         if (!auth) {
             auth = firebase.auth();
             auth.onAuthStateChanged(user => {
-                setAuthState({ user, isLoading: false });
-
                 if (user === null) {
                     allSolvesCollection = undefined;
+                    setAuthState({ user: null, isLoading: false });
                 } else {
                     onUserSignedIn(user);
                 }

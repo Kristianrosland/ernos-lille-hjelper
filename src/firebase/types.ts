@@ -10,8 +10,8 @@ export interface StoredData {
 }
 
 export interface DataStateModifiers {
-    addNewSolve: (solve: Solve) => void;
-    removeStoredSolve: (solve: Solve) => void;
+    addNewSolve: (solve: Solve) => Promise<void>;
+    removeStoredSolve: (solve: Solve) => Promise<void>;
 }
 
 export interface AuthState {
