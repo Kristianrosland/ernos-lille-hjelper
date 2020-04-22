@@ -81,6 +81,14 @@
     width: 100%;
 }
 
+.currentSolveTime {
+    text-align: center;
+}
+
+.currentSolveTime .removeSolveButton {
+    display: none;
+}
+
 .removeSolveButton {
     border: none;
     background-color: transparent;
@@ -90,13 +98,7 @@
 
 .removeSolveIcon {
     font-size: 2rem;
-
     opacity: 0.2;
-}
-
-.removeSolveButton:hover .removeSolveIcon {
-    opacity: 1;
-    color: @red;
 }
 
 .previousSolvesContainer {
@@ -256,8 +258,35 @@
         cursor: pointer;
     }
 
+    .currentSolveTime {
+        padding: 0 8rem;
+    }
+
     .previousSolves {
         height: 320px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .previousSolve {
+        position: relative;
+    }
+
+    .removeSolveButton {
+        visibility: hidden;
+        position: absolute;
+        right: -50px;
+        top: 5px;
+    }
+
+    .previousSolve:hover .removeSolveButton {
+        visibility: visible;
+    }
+
+    .removeSolveIcon:hover {
+        opacity: 1;
+        color: @red;
     }
 
     .timerContainer {
