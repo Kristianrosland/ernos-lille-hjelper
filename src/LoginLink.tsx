@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import css from './app.less';
-import { AuthContext } from './FirebaseProvider';
+import { AuthContext } from './firebase/FirebaseProvider';
 
 const LoginLink = () => {
     const { user, isLoading, signOut } = useContext(AuthContext);
