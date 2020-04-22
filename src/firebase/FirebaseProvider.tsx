@@ -1,7 +1,7 @@
 import firebase, { firestore } from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
-import React, { createContext, ReactNode, useEffect, useState } from 'react';
+import React, { createContext, ReactNode, useCallback, useEffect, useState } from 'react';
 import { Solve } from '../types/solve-types';
 import { config, defaultAuthState, defaultDataState, getFirebaseError } from './firebase-utils';
 import { AuthState, AuthStateModifiers, DataState, DataStateModifiers } from './types';
@@ -76,7 +76,7 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         setDataState(prev => ({ ...prev, stored: defaultDataState.stored }));
     };
 
-    const onUserSignedIn = async (user: firebase.User) => {
+    const onUserSignedIn = useCallback(async (user: firebase.User) => {
         allSolvesCollection = firebase
             .firestore()
             .collection('solves')
@@ -88,14 +88,11 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
             .limit(1)
             .get()
             .then(snapshot => snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
-            .then(res => {
-                console.log(res);
-                updateBest(res.length === 0 ? undefined : (res[0] as Solve));
-            });
+            .then(res => updateBest(res.length === 0 ? undefined : (res[0] as Solve)));
 
         const username = await getUsername(user.uid);
         setAuthState(prev => ({ ...prev, user: { ...user, username } }));
-    };
+    }, []);
 
     const signUp = async (email: string, password: string, username?: string) => {
         try {
@@ -112,7 +109,7 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
             }
 
             if (res.user?.uid) {
-                setUsername(username!, res.user!.uid);
+                setUsername({ username: username!, userId: res.user!.uid });
             }
 
             return null;
@@ -134,7 +131,7 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
                 }
             });
         }
-    }, []);
+    }, [onUserSignedIn]);
 
     return (
         <AuthContext.Provider value={{ ...authState, signIn, signUp, signOut }}>

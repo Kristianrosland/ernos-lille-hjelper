@@ -16,12 +16,12 @@ export const getUsername = async (userId: string): Promise<string | undefined> =
     }
 };
 
-export const setUsername = (userId: string, username: string) => {
+export const setUsername = (args: { userId: string; username: string }) => {
     firebase
         .firestore()
         .collection('userdata')
-        .doc(userId)
-        .set({ username });
+        .doc(args.userId)
+        .set({ username: args.username });
 };
 
 export const usernameExists = async (username: string): Promise<boolean> => {
