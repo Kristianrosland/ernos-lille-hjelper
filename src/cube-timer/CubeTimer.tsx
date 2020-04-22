@@ -1,8 +1,8 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import seedrandom from 'seedrandom';
+import Menu from '../components/menu/Menu';
 import { DataContext } from '../firebase/FirebaseProvider';
-import LoginLink from '../LoginLink';
 import css from './cube-timer.less';
 import { now } from './format-time-utils';
 import Scramble from './Scramble';
@@ -37,7 +37,7 @@ const CubeTimer = () => {
 
     return (
         <div className={css.cubeTimerContainer}>
-            <LoginLink />
+            <Menu />
             {!timerRunning && (
                 <Scramble
                     newScramble={params.scramble ? params.scramble.replace(/-/g, ' ') : ''}
