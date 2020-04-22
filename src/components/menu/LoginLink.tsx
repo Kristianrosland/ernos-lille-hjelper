@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { AuthContext } from '../../firebase/FirebaseProvider';
+import { AuthContext } from '../firebase/FirebaseProvider';
 import css from './menu.less';
 
 const LoginLink = () => {

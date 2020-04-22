@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, { useContext } from 'react';
-import { AuthContext } from '../../firebase/FirebaseProvider';
+import { AuthContext } from '../firebase/FirebaseProvider';
 import LoginLink from './LoginLink';
 import css from './menu.less';
 

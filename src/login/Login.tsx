@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import EmailAndPasswordForm from '../components/email-and-password/EmailAndPasswordForm';
-import { AuthContext } from '../firebase/FirebaseProvider';
+import { AuthContext } from '../components/firebase/FirebaseProvider';
 import css from './login.less';
 
 const Login = () => {
