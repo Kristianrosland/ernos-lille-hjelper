@@ -11,7 +11,7 @@ const App = () => {
         <FirebaseProvider>
             <HashRouter>
                 <Route exact={true} path="/" component={CubeTimer} />
-                <Route exact={true} path="/:scramble" component={CubeTimer} />
+                <Route exact={true} path="/scramble/:scramble" component={CubeTimer} />
                 <Route path="/algorithms" component={Algorithms} />
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />

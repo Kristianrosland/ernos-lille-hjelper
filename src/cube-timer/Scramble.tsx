@@ -3,9 +3,10 @@ import css from './cube-timer.less';
 
 interface Props {
     newScramble: string;
+    onPrevScrambleClick: (prevScramble: string) => void;
 }
 
-const Scramble: React.FC<Props> = ({ newScramble }) => {
+const Scramble: React.FC<Props> = ({ newScramble, onPrevScrambleClick }) => {
     const [currentScramble, setCurrentScramble] = useState<string>();
     const [previousScramble, setPreviousScramble] = useState<string>();
 
@@ -19,7 +20,19 @@ const Scramble: React.FC<Props> = ({ newScramble }) => {
     return (
         <div className={css.scrambleContainer}>
             <div className={css.scramble}>{currentScramble}</div>
-            {currentScramble && <div className={css.previousScramble}>{previousScramble}</div>}
+            {currentScramble && (
+                <div
+                    className={css.previousScramble}
+                    onClick={() => {
+                        if (previousScramble) {
+                            onPrevScrambleClick(previousScramble!);
+                            setPreviousScramble(undefined);
+                        }
+                    }}
+                >
+                    {previousScramble}
+                </div>
+            )}
         </div>
     );
 };

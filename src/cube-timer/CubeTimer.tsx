@@ -1,15 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import scrambleGenerator from 'rubiks-cube-scramble';
+import seedrandom from 'seedrandom';
 import { DataContext } from '../FirebaseProvider';
 import LoginLink from '../LoginLink';
 import css from './cube-timer.less';
 import { now } from './format-time-utils';
 import Scramble from './Scramble';
+import { generate } from './ScrambleGenerator';
 import SessionStats from './SessionStats';
 import Timer from './Timer';
-
-const newScramble = (): string => (scrambleGenerator() as string).trim();
 
 const CubeTimer = () => {
     const params = useParams<{ scramble: string }>();
@@ -18,20 +17,35 @@ const CubeTimer = () => {
 
     const history = useHistory();
 
-    const setNewScramble = () => {
-        history.push('/' + newScramble().replace(/ /g, '-'));
-    };
+    const setNewScramble = useCallback(async () => {
+        if (params.scramble) {
+            seedrandom(params.scramble, { global: true });
+        }
+        history.push(
+            '/scramble/' +
+                generate()
+                    .trim()
+                    .replace(/ /g, '-'),
+        );
+    }, [history, params.scramble]);
 
     useEffect(() => {
         if (params.scramble === undefined) {
             setNewScramble();
         }
-    }, []);
+    }, [params.scramble, setNewScramble]);
 
     return (
         <div className={css.cubeTimerContainer}>
             <LoginLink />
-            {!timerRunning && <Scramble newScramble={params.scramble ? params.scramble.replace(/-/g, ' ') : ''} />}
+            {!timerRunning && (
+                <Scramble
+                    newScramble={params.scramble ? params.scramble.replace(/-/g, ' ') : ''}
+                    onPrevScrambleClick={(oldScramble: string) =>
+                        history.push('/scramble/' + oldScramble.replace(/ /g, '-'))
+                    }
+                />
+            )}
 
             <Timer
                 timerRunning={timerRunning}
