@@ -51,16 +51,14 @@ const CubeTimer = () => {
                 timerRunning={timerRunning}
                 onToggleTimerRunning={setTimerRunning}
                 onNewScramble={() => setNewScramble()}
-                solves={sessionSolves.concat(stored.lastFive)}
+                solves={sessionSolves}
                 addSolve={solveTime =>
                     addNewSolve({ time: solveTime, timestamp: now(), scramble: params.scramble })
                 }
                 removeSolve={removeStoredSolve}
             />
 
-            {!timerRunning && (
-                <SessionStats sessionSolves={sessionSolves.concat(stored.lastFive)} bestSolve={stored.best} />
-            )}
+            {!timerRunning && <SessionStats sessionSolves={sessionSolves} bestSolve={stored.best} />}
         </div>
     );
 };

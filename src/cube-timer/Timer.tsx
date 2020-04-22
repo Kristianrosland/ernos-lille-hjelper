@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
+import ReactTooltip from 'react-tooltip';
 import { Solve } from '../types/solve-types';
 import css from './cube-timer.less';
 import { formatTimer, now } from './format-time-utils';
@@ -15,6 +16,7 @@ interface TimerProps {
     removeSolve: (solve: Solve) => void;
 }
 
+const tooltipText = 'Hold inne space for å starte';
 const MINIMUM_HOLD_TIME = 500; // Milliseconds to hold before release
 
 const Timer: React.FC<TimerProps> = ({
@@ -127,7 +129,11 @@ const Timer: React.FC<TimerProps> = ({
                 </div>
             ) : (
                 <>
-                    <div className={classNames(css.startButton, holdingClasses)}>
+                    <div
+                        className={classNames(css.startButton, holdingClasses)}
+                        data-for="start-timer-tooltip"
+                        data-tip={tooltipText}
+                    >
                         <i className={classNames('fas fa-hand-paper', css.leftHand)} />
                     </div>
                     <div className={css.solves}>
@@ -174,13 +180,22 @@ const Timer: React.FC<TimerProps> = ({
                             </div>
                         </div>
                     </div>
-                    <div className={classNames(css.startButton, holdingClasses)}>
+                    <div
+                        className={classNames(css.startButton, holdingClasses)}
+                        data-for="start-timer-tooltip"
+                        data-tip={tooltipText}
+                    >
                         <i className="fas fa-hand-paper" />
                     </div>
                 </>
             )}
             <KeyboardEventHandler handleKeys={['space']} onKeyEvent={startHold} />
-            <KeyboardEventHandler handleKeys={['space']} handleEventType={'keyup'} onKeyEvent={stopHold} />
+            <KeyboardEventHandler
+                handleKeys={['space', 'alphanumeric']}
+                handleEventType={'keyup'}
+                onKeyEvent={stopHold}
+            />
+            <ReactTooltip id="start-timer-tooltip" effect="solid" type="light" />
         </div>
     );
 };
