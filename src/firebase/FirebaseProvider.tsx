@@ -98,7 +98,7 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
             });
 
         const username = await getUsername(user.uid);
-        setAuthState(prev => ({ ...prev, user: { ...user, username } }));
+        setAuthState(prev => ({ ...prev, isLoading: false, user: { ...user, username } }));
     }, []);
 
     const signUp = async (email: string, password: string, username?: string) => {
