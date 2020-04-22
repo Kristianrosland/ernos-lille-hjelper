@@ -2,13 +2,13 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import seedrandom from 'seedrandom';
 import Menu from '../components/menu/Menu';
+import Scramble from '../components/scramble/Scramble';
+import { generate } from '../components/scramble/ScrambleGenerator';
+import SessionStats from '../components/stats/SessionStats';
+import Timer from '../components/timer/Timer';
 import { DataContext } from '../firebase/FirebaseProvider';
 import css from './cube-timer.less';
 import { now } from './format-time-utils';
-import Scramble from './Scramble';
-import { generate } from './ScrambleGenerator';
-import SessionStats from './SessionStats';
-import Timer from './Timer';
 
 const CubeTimer = () => {
     const params = useParams<{ scramble: string }>();

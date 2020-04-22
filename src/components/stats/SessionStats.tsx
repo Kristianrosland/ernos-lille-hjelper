@@ -1,7 +1,7 @@
 import React from 'react';
-import { Solve } from '../types/solve-types';
-import css from './cube-timer.less';
-import { formatTimer } from './format-time-utils';
+import { Solve } from '../../types/solve-types';
+import { formatTimer } from '../timer/format-time-utils';
+import css from './session-stats.less';
 
 const findBestSolve = (solves: Solve[]): number => Math.min(...solves.map(solve => solve.time));
 const findWorstSolve = (solves: Solve[]): number => Math.max(...solves.map(solve => solve.time));

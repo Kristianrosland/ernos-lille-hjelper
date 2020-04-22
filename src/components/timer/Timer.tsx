@@ -2,9 +2,9 @@ import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import ReactTooltip from 'react-tooltip';
-import { Solve } from '../types/solve-types';
-import css from './cube-timer.less';
+import { Solve } from '../../types/solve-types';
 import { formatTimer, now } from './format-time-utils';
+import css from './timer.less';
 
 let interval: NodeJS.Timeout | undefined;
 interface TimerProps {

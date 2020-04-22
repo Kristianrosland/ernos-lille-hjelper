@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import css from './cube-timer.less';
+import css from './scramble.less';
 
 interface Props {
     newScramble: string;

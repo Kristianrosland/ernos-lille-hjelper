@@ -1,0 +1,227 @@
+@import '../less-variables/colors.less';
+
+.timerContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 4rem;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+}
+
+.solves {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2.5rem;
+}
+
+.timer {
+    text-align: center;
+    font-size: 5rem;
+    margin-bottom: 1rem;
+}
+
+.timer.holding {
+    color: @orange;
+}
+
+.timer.readyToStart {
+    color: @green;
+}
+
+.time {
+    color: white;
+    font-family: 'Anonymous Pro', monospace;
+}
+
+.largeTimer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    padding-top: 8.5rem;
+    text-align: center;
+    width: 100%;
+}
+
+.currentSolveTime {
+    text-align: center;
+}
+
+.currentSolveTime .removeSolveButton {
+    display: none;
+}
+
+.removeSolveButton {
+    border: none;
+    background-color: transparent;
+    padding-left: 20px;
+    outline: none;
+}
+
+.removeSolveIcon {
+    font-size: 2rem;
+    opacity: 0.2;
+}
+
+.abortButton {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+
+    padding: 8px 12px;
+
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.4rem;
+
+    color: white;
+    border: 2px solid white;
+    border-radius: 10%;
+    opacity: 0.6;
+
+    cursor: pointer;
+}
+
+.previousSolvesContainer {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+@transparentBlue: rgba(46, 110, 191, 0);
+
+.fadeOut {
+    bottom: -40px;
+    height: 4em;
+    background: linear-gradient(@transparentBlue 0%, @blue 100%);
+    background: -moz-linear-gradient(@transparentBlue 0%, @blue 100%);
+    background: -webkit-linear-gradient(@transparentBlue 0%, @blue 100%);
+    background: -webkit-gradient(linear, color-stop(0%, @transparentBlue), color-stop(100%, @blue));
+    background: -o-linear-gradient(@transparentBlue 0%, @blue 100%);
+    background: -ms-linear-gradient(@transparentBlue 0%, @blue 100%);
+
+    position: absolute;
+    width: 100%;
+    pointer-events: none;
+}
+
+.fadeOut:hover {
+    pointer-events: none;
+}
+
+.previousSolves {
+    height: 155px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    opacity: 0.8;
+    font-size: 3rem;
+    overflow: scroll;
+    width: auto;
+}
+
+.previousSolves::-webkit-scrollbar {
+    display: none;
+}
+
+.previousSolves span {
+    text-align: right;
+}
+
+.startButton {
+    display: none;
+}
+
+@media screen and (min-width: 1140px) {
+    .handButtonsAndSolveTimeContainer {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .startButton {
+        background-color: @yellow;
+        border-radius: 50%;
+        height: 200px;
+        width: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 90px;
+    }
+
+    .startButton .leftHand {
+        transform: scaleX(-1);
+    }
+
+    .startButton.holding {
+        background-color: @orange;
+    }
+
+    .startButton.readyToStart {
+        background-color: @green;
+    }
+
+    .timer {
+        width: 500px;
+        font-size: 6rem;
+    }
+
+    .largeTimer .timer {
+        font-size: 8rem;
+        width: 80%;
+    }
+
+    .currentSolveTime {
+        margin: 0 8rem;
+        position: relative;
+    }
+
+    .currentSolveTime .show.removeSolveButton {
+        display: block;
+        position: absolute;
+        top: 5px;
+        right: -40px;
+    }
+
+    .previousSolves {
+        height: 320px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .previousSolve {
+        position: relative;
+    }
+
+    .previousSolve .removeSolveButton {
+        visibility: hidden;
+        position: absolute;
+        right: -50px;
+        top: 5px;
+    }
+
+    .previousSolve:hover .removeSolveButton {
+        visibility: visible;
+    }
+
+    .removeSolveIcon:hover {
+        opacity: 1;
+        color: @red;
+    }
+
+    .timerContainer {
+        margin-bottom: 5rem;
+        width: 80%;
+    }
+}

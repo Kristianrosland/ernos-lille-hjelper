@@ -1,0 +1,51 @@
+@import '../less-variables/colors.less';
+
+.statsContainerMobile {
+    color: @white;
+    width: 80%;
+    margin-bottom: 5rem;
+}
+
+.statsContainerMobile .heading {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.statsContainerDesktop {
+    display: none;
+}
+
+@media screen and (min-width: 1140px) {
+    .statsContainerDesktop {
+        display: flex;
+        background-color: @blue;
+        height: 70px;
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        justify-content: space-evenly;
+        align-items: center;
+        color: white;
+        font-size: 1.25rem;
+    }
+
+    .statsContainerDesktop .heading {
+        font-weight: 600;
+    }
+
+    .statsContainerDesktop .statElement {
+        display: flex;
+    }
+
+    .statsContainerDesktop .statLabel {
+        margin-right: 10px;
+    }
+
+    .statsContainerDesktop .statValue {
+        font-weight: 600;
+    }
+
+    .statsContainerMobile {
+        display: none;
+    }
+}
