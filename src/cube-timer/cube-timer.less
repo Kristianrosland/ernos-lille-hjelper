@@ -259,7 +259,15 @@
     }
 
     .currentSolveTime {
-        padding: 0 8rem;
+        margin: 0 8rem;
+        position: relative;
+    }
+
+    .currentSolveTime .show.removeSolveButton {
+        display: block;
+        position: absolute;
+        top: 5px;
+        right: -40px;
     }
 
     .previousSolves {
@@ -273,7 +281,7 @@
         position: relative;
     }
 
-    .removeSolveButton {
+    .previousSolve .removeSolveButton {
         visibility: hidden;
         position: absolute;
         right: -50px;
