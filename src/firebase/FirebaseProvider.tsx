@@ -50,15 +50,6 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
                 .where('timestamp', '==', solveToRemove.timestamp)
                 .get()
                 .then(snapshot => snapshot.docs.forEach(doc => doc.ref.delete()));
-
-            if (dataState.stored.best?.timestamp === solveToRemove.timestamp) {
-                allSolvesCollection
-                    .orderBy('time', 'asc')
-                    .limit(1)
-                    .get()
-                    .then(snapshot => snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
-                    .then(res => updateBest(res.length === 0 ? undefined : (res[0] as Solve)));
-            }
         }
     };
 
@@ -94,12 +85,17 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
                 })),
             );
 
-        allSolvesCollection
+        firebase
+            .firestore()
+            .collection('solves')
+            .doc(user.uid)
+            .collection('all_solves')
             .orderBy('time', 'asc')
             .limit(1)
-            .get()
-            .then(snapshot => snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
-            .then(res => updateBest(res.length === 0 ? undefined : (res[0] as Solve)));
+            .onSnapshot(snapshot => {
+                const solves = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+                updateBest(solves.length === 0 ? undefined : (solves[0] as Solve));
+            });
 
         const username = await getUsername(user.uid);
         setAuthState(prev => ({ ...prev, user: { ...user, username } }));
