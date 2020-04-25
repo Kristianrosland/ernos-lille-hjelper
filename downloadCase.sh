@@ -1,11 +1,11 @@
-name="case"
+name="UR5b"
 
-RS="g"
-LS="r"
+LS="g"
+RS="o"
 
-R="s"
-L="s"
-TOP="s"
+L=$LS
+R="w"
+TOP=$RS
 
 enU="s"
 enL="s"
@@ -16,8 +16,8 @@ fireR="s"
 to="s"
 tre="s"
 
-femL="s"
-femR="s"
+femL=$RS
+femR=$LS
 DL="s"
 DR="s"
                  
