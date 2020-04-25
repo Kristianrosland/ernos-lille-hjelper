@@ -1,5 +1,8 @@
 name="case"
 
+RS="g"
+LS="r"
+
 R="s"
 L="s"
 TOP="s"
@@ -17,9 +20,8 @@ femL="s"
 femR="s"
 DL="s"
 DR="s"
-
                  
-state="s${tre}s ${to}y${fireU} s${enU}${TOP}       ${R}${fireR}s ${femR}rr ${DR}rr       s${enL}${L} bb${femL}  bb${DL}                           wwwwwwwww ooooooooo gggggggg"
+state="s${tre}s ${to}y${fireU} s${enU}${TOP}       ${R}${fireR}s ${femR}${RS}${RS} ${DR}${RS}${RS}       s${enL}${L} ${LS}${LS}${femL}  ${LS}${LS}${DL}                           wwwwwwwww ooooooooo gggggggg"
 # state="sss sys sss       sss srr srr       sss bbs  bbs                           wwwwwwwww ooooooooo gggggggg"
 # state="sss sys sss       sss srr srr       sss bbs  bbs                           wwwwwwwww ooooooooo gggggggg"
 # state="sss sys sss       sss srr srr       sss bbs  bbs                           wwwwwwwww ooooooooo gggggggg"
