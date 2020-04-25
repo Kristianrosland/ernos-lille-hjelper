@@ -69,44 +69,44 @@ const cases: F2LCase[] = [
         alg: '',
     },
     {
-        name: '',
-        alg: '',
+        name: 'UR5',
+        alg: "U (R U R') U2 (R U R')",
     },
     {
-        name: '',
-        alg: '',
+        name: 'UU5',
+        alg: "(U R U' R') (U R U' R') (U R U' R')",
     },
     {
-        name: '',
-        alg: '',
+        name: 'UL5b',
+        alg: "(U' R U R') U y' (R' U' R)",
     },
     {
-        name: '',
-        alg: '',
+        name: 'UU5b',
+        alg: "(R U' R' U) y' (R' U R)",
     },
     {
-        name: '',
-        alg: '',
+        name: 'UL5',
+        alg: "(U' R U' R') U2 (R U' R')",
     },
     {
-        name: '',
-        alg: '',
+        name: 'DL5',
+        alg: "(R U' R' U') R U R' U2 (R U' R')",
     },
     {
-        name: '',
-        alg: '',
+        name: 'DL5b',
+        alg: "(F' U F) U2 (R U R' U) (R U' R')",
     },
     {
-        name: '',
-        alg: '',
+        name: 'DR5b',
+        alg: "(R U R' U') (R U' R') U2 y' (R' U' R)",
     },
     {
-        name: '',
-        alg: '',
+        name: 'DR5',
+        alg: "(R U' R' U) (R U2' R') U (R U' R')",
     },
     {
-        name: '',
-        alg: '',
+        name: 'DD5b',
+        alg: "(R U' R') d (R' U2 R) U2' (R' U R) ",
     },
 ];
 
