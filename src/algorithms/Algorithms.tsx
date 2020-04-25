@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
+import { ReactSVG } from 'react-svg';
 import css from './algorithms.less';
 import cases, { F2LCase } from './cases';
 
@@ -21,7 +22,7 @@ const Algorithms = () => {
         <div className={css.container}>
             <input value={query} onChange={onChange} className={css.queryInput} />
             {currentCases.map(c => (
-                <img key={c.name} src={c.src} className={css.image} alt="Solution" />
+                <ReactSVG key={c.name} src="cases/case.svg" className={css.svgWrapper} />
             ))}
         </div>
     );
