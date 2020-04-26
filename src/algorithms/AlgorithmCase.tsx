@@ -13,7 +13,7 @@ const AlgorithmCase: React.FC<Props> = ({ f2lCase }) => {
     const [input, setInput] = useState('');
 
     const myAlgorithms = {
-        UU1a: "U R L' R' U D",
+        ABCa: "U R L' R' U D",
     };
 
     const customAlg = Object.entries(myAlgorithms).find(([key, _value]) => key === f2lCase.name);
