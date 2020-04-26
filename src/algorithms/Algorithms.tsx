@@ -1,11 +1,14 @@
 import React, { ChangeEvent, useState } from 'react';
-import { ReactSVG } from 'react-svg';
+import Menu from '../components/menu/Menu';
+import AlgorithmCase from './AlgorithmCase';
 import css from './algorithms.less';
 import cases, { F2LCase } from './cases';
+import HowItWorks from './HowItWorks';
 
 const Algorithms = () => {
     const [query, setQuery] = useState('');
     const [currentCases, setCurrentCases] = useState<F2LCase[]>([]);
+    const [howItWorks, setHowItWorks] = useState(false);
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         const inp = e.target.value.toUpperCase();
@@ -20,9 +23,19 @@ const Algorithms = () => {
 
     return (
         <div className={css.container}>
-            <input value={query} onChange={onChange} className={css.queryInput} />
+            <Menu dark={true} />
+            <input value={query} onChange={onChange} className={css.queryInput} placeholder="Søk.." />
+
+            {howItWorks ? (
+                <HowItWorks close={() => setHowItWorks(false)} />
+            ) : (
+                <div className={css.howItWorks} onClick={() => setHowItWorks(true)}>
+                    Hvordan søker man?
+                </div>
+            )}
+
             {currentCases.map(c => (
-                <ReactSVG key={c.name} src="cases/case.svg" className={css.svgWrapper} />
+                <AlgorithmCase key={c.name} f2lCase={c} />
             ))}
         </div>
     );

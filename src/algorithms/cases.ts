@@ -49,7 +49,7 @@ const cases: F2LCase[] = [
         alg: "(U' R U R') U2 (R U' R')",
     },
     {
-        name: 'UL2a',
+        name: 'UL2b',
         alg: "U' (R U2' R') U2 (R U' R')",
     },
     {
@@ -89,11 +89,11 @@ const cases: F2LCase[] = [
         alg: "U (R U' R' U') (R U' R' U) (R U' R')",
     },
     {
-        name: 'UR5',
+        name: 'UR5a',
         alg: "U (R U R') U2 (R U R')",
     },
     {
-        name: 'UU5',
+        name: 'UU5a',
         alg: "(U R U' R') (U R U' R') (U R U' R')",
     },
     {
@@ -105,11 +105,11 @@ const cases: F2LCase[] = [
         alg: "(R U' R' U) y' (R' U R)",
     },
     {
-        name: 'UL5',
+        name: 'UL5a',
         alg: "(U' R U' R') U2 (R U' R')",
     },
     {
-        name: 'DL5',
+        name: 'DL5a',
         alg: "(R U' R' U') R U R' U2 (R U' R')",
     },
     {
@@ -121,7 +121,7 @@ const cases: F2LCase[] = [
         alg: "(R U R' U') (R U' R') U2 y' (R' U' R)",
     },
     {
-        name: 'DR5',
+        name: 'DR5a',
         alg: "(R U' R' U) (R U2' R') U (R U' R')",
     },
     {

@@ -1,6 +1,8 @@
+@import '../components/less-variables/colors.less';
+
 .container {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
 
     display: flex;
     flex-direction: column;
@@ -8,8 +10,8 @@
     align-items: center;
 
     box-sizing: border-box;
-    background-color: #ffe68a;
-    padding-top: 10%;
+    background-color: @green;
+    padding-top: 5rem;
 }
 
 .queryInput {
@@ -22,17 +24,96 @@
     letter-spacing: 1rem;
 }
 
-.image {
-    object-fit: cover;
-    max-width: 1100px;
+.case {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    width: 95%;
+    max-width: 1000px;
+    margin-top: 1rem;
 }
 
-.image:first-of-type {
-    margin-top: 10%;
+.algorithm {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1.5rem;
 }
 
-.svgWrapper {
-    background-color: red;
-    height: 100px;
-    width: 100px;
+.algHeader {
+    font-size: 0.85rem;
+}
+
+.algorithmText {
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+}
+
+.addCustomAlgorithm {
+    background-color: transparent;
+    border: none;
+    text-align: left;
+
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    font-weight: bold;
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+    cursor: pointer;
+}
+
+.customAlg {
+    margin-top: 1.5rem;
+}
+
+.customAlgText {
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.customAlgInput {
+    width: 100%;
+    max-width: 300px;
+    height: 3rem;
+
+    font-size: 1.25rem;
+    margin-top: 1.5rem;
+    padding-left: 0.5rem;
+    box-sizing: border-box;
+}
+
+.saveCustomAlg {
+    height: 3rem;
+    background-color: transparent;
+    border: none;
+
+    font-size: 1.25rem;
+    width: 6rem;
+
+    &:focus {
+        outline: none;
+    }
+
+    &:hover {
+        font-weight: bold;
+        text-decoration: underline;
+    }
+    cursor: pointer;
+}
+
+.howItWorksContainer {
+    margin-top: 0.75rem;
+}
+
+.howItWorks {
+    text-decoration: underline;
+    margin-top: 0.75rem;
+
+    cursor: pointer;
 }
