@@ -9,6 +9,7 @@ const Algorithms = () => {
     const [query, setQuery] = useState('');
     const [currentCases, setCurrentCases] = useState<F2LCase[]>([]);
     const [howItWorks, setHowItWorks] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         const inp = e.target.value.toUpperCase();
@@ -16,8 +17,10 @@ const Algorithms = () => {
 
         if (inp.length === 3) {
             const matches = cases.filter(c => c.name.startsWith(inp));
-            setCurrentCases(matches);
+
             setQuery('');
+            setCurrentCases(matches);
+            setError(matches.length === 0 ? `${inp} er ikke en F2L-case` : null);
         }
     };
 
@@ -33,6 +36,8 @@ const Algorithms = () => {
                     Hvordan søker man?
                 </div>
             )}
+
+            {error && <div className={css.notFound}>{error}</div>}
 
             {currentCases.map(c => (
                 <AlgorithmCase key={c.name} f2lCase={c} />
