@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import sortBy from 'lodash.sortby';
 import React, { useContext } from 'react';
 import { AuthContext, DataContext } from '../components/firebase/FirebaseProvider';
+import Menu from '../components/menu/Menu';
 import { formatTimer } from '../components/timer/format-time-utils';
 import css from './highscores.less';
 
@@ -36,6 +37,7 @@ const Highscores: React.FC = () => {
 
     return (
         <div className={css.container}>
+            <Menu />
             <div className={css.highscoresContainer}>
                 <div className={css.heading}>deg og dine venner</div>
 
