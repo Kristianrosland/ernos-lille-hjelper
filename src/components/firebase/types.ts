@@ -5,6 +5,11 @@ export interface DataState {
     stored: StoredData;
 }
 
+export interface Friend {
+    username: string | undefined;
+    best: Solve | undefined;
+}
+
 export interface StoredData {
     best: Solve | undefined;
 }
@@ -15,8 +20,13 @@ export interface DataStateModifiers {
 }
 
 export interface AuthState {
-    user: (firebase.User & { username?: string }) | null;
+    user: (firebase.User & LoggedInUser) | null;
     isLoading: boolean;
+}
+
+export interface LoggedInUser {
+    username: string | undefined;
+    friends: Friend[];
 }
 
 export interface AuthStateModifiers {

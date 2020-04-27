@@ -90,7 +90,7 @@ const SessionStats: React.FC<Props> = ({ sessionSolves, bestSolve }) => {
             </div>
 
             <div className={css.statsContainerDesktop}>
-                <div className={css.hading}>Dine tider</div>
+                <div className={css.heading}>Dine tider</div>
                 <div className={css.statElement}>
                     <div className={css.statLabel}>beste:</div>
                     <div className={css.statValue}>

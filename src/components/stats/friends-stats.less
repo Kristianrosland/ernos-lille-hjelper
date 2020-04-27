@@ -1,0 +1,32 @@
+@import '../less-variables/colors.less';
+
+.friendsStatsContainer {
+    display: none;
+}
+
+@media screen and (min-width: 1140px) {
+    .friendsStatsContainer {
+        display: block;
+        color: white;
+        width: 80%;
+        margin-bottom: 5rem;
+    }
+
+    .heading {
+        font-weight: 600;
+    }
+
+    .friendsStatsContainer ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    .friendsStatsContainer li {
+        margin-bottom: 5px;
+        display: flex;
+    }
+
+    .friendStat {
+        margin-right: 5px;
+    }
+}
