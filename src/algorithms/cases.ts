@@ -1,76 +1,172 @@
-import DD1a from './cases/DD1a.png';
-import DD4a from './cases/DD4a.png';
-import DD5b from './cases/DD5b.png';
-import DR5a from './cases/DR5a.png';
-import UL1a from './cases/UL1a.png';
-import UL5a from './cases/UL5a.png';
-import UL5b from './cases/UL5b.png';
-import UR1b from './cases/UR1b.png';
-import UR5a from './cases/UR5a.png';
-import UR5b from './cases/UR5b.png';
-import UU4b from './cases/UU4b.png';
-
 export interface F2LCase {
-    src: string;
     name: string;
     alg: string;
 }
 
 const cases: F2LCase[] = [
     {
-        src: UL1a,
+        name: 'UL4a',
+        alg: "U (R U' R')",
+    },
+    {
+        name: 'UL2a',
+        alg: "y' (R' U' R)",
+    },
+    {
+        name: 'UR1a',
+        alg: "y' U' (R' U R)",
+    },
+    {
+        name: 'UR3b',
+        alg: "(R U R')",
+    },
+    {
+        name: 'UL3b',
+        alg: "U' (R U' R' U) y' (R' U' R)",
+    },
+    {
+        name: 'UL4b',
+        alg: "U' (R U2' R' U) y' (R' U' R)",
+    },
+    {
         name: 'UL1a',
         alg: "y' U (R' U R U') (R' U' R)",
     },
     {
-        src: UR1b,
+        name: 'UR2b',
+        alg: "U' (R U R' U) (R U R')",
+    },
+    {
         name: 'UR1b',
-        alg: "y' U (R' U2 R) U' y (R U R')",
+        alg: "R' U2' R2 U R2' U R",
     },
     {
-        src: UU4b,
-        name: 'UU4b',
-        alg: "y' U' (R' U R U) (R' U R U') (R' U R)",
+        name: 'UR4a',
+        alg: "U' (R U' R' U) (R U R')",
     },
     {
-        src: UL5a,
-        name: 'UL5a',
-        alg: "(U' R U' R') U2 (R U' R')",
+        name: 'UL3a',
+        alg: "(U' R U R') U2 (R U' R')",
     },
     {
-        src: UL5b,
-        name: 'UL5b',
-        alg: "(U' R U R') U y' (R' U' R)",
+        name: 'UL2b',
+        alg: "U' (R U2' R') U2 (R U' R')",
     },
     {
-        src: DD1a,
-        name: 'DD1a',
-        alg: "U (R U' R') U' (F' U F)",
+        name: 'UR2a',
+        alg: "y' (U R' U' R) U2' (R' U R)",
     },
     {
-        src: UR5a,
+        name: 'UR3a',
+        alg: "y' U (R' U2 R) U2' (R' U R)",
+    },
+    {
+        name: 'UU3a',
+        alg: "U (R U2 R') U (R U' R')",
+    },
+    {
+        name: 'UU2a',
+        alg: "U2 (R U R' U) (R U' R')",
+    },
+    {
+        name: 'UU2b',
+        alg: "y' U' (R' U2 R) U' (R' U R)",
+    },
+    {
+        name: 'UU3b',
+        alg: "y' U2 (R' U' R) U' (R' U R)",
+    },
+    {
+        name: 'UL1b',
+        alg: "y' (R' U R) U2' y (R U R')",
+    },
+    {
+        name: 'UU4a',
+        alg: "(R U2 R') U' (R U R')",
+    },
+    {
+        name: 'UU1b',
+        alg: "U (R U' R' U') (R U' R' U) (R U' R')",
+    },
+    {
         name: 'UR5a',
         alg: "U (R U R') U2 (R U R')",
     },
     {
-        src: UR5b,
-        name: 'UR5b',
-        alg: "U (F' U' F) U' (R U R')",
+        name: 'UU5a',
+        alg: "(U R U' R') (U R U' R') (U R U' R')",
     },
     {
-        src: DR5a,
+        name: 'UL5b',
+        alg: "(U' R U R') U y' (R' U' R)",
+    },
+    {
+        name: 'UU5b',
+        alg: "(R U' R' U) y' (R' U R)",
+    },
+    {
+        name: 'UL5a',
+        alg: "(U' R U' R') U2 (R U' R')",
+    },
+    {
+        name: 'DL5a',
+        alg: "(R U' R' U') R U R' U2 (R U' R')",
+    },
+    {
+        name: 'DL5b',
+        alg: "(F' U F) U2 (R U R' U) (R U' R')",
+    },
+    {
+        name: 'DR5b',
+        alg: "(R U R' U') (R U' R') U2 y' (R' U' R)",
+    },
+    {
         name: 'DR5a',
         alg: "(R U' R' U) (R U2' R') U (R U' R')",
     },
     {
-        src: DD5b,
         name: 'DD5b',
-        alg: '',
+        alg: "(R U' R') d (R' U2 R) U2' (R' U R) ",
     },
     {
-        src: DD4a,
+        name: 'UR4b',
+        alg: "(R U' R' U2) y' (R' U' R)",
+    },
+    {
+        name: 'UU1a',
+        alg: "y' (R' U2 R) U (R' U' R)",
+    },
+    {
+        name: 'UU4b',
+        alg: "y' U' (R' U R U) (R' U R U') (R' U R)",
+    },
+    {
+        name: 'DD1a',
+        alg: "U (R U' R') U' (F' U F)",
+    },
+    {
+        name: 'DR1a',
+        alg: "y' (R' U R U') (R' U R)",
+    },
+    {
+        name: 'DR4a',
+        alg: "(R U R' U') (R U R')",
+    },
+    {
         name: 'DD4a',
         alg: "U' F' (R U R' U') R' F R",
+    },
+    {
+        name: 'DL4a',
+        alg: "(R U' R' U) (R U' R')",
+    },
+    {
+        name: 'DL1a',
+        alg: "y' (R' U' R U) (R' U' R)",
+    },
+    {
+        name: 'UR5b',
+        alg: "U (F' U' F) U' (R U R')",
     },
 ];
 
