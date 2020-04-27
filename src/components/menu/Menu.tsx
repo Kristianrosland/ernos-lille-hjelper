@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../firebase/FirebaseProvider';
+import cubeIcon from './cube-logo.svg';
 import LoginLink from './LoginLink';
 import css from './menu.less';
 
@@ -10,8 +11,11 @@ const Menu: React.FC<{ dark?: boolean }> = ({ dark = false }) => {
     const history = useHistory();
 
     return isLoading ? null : (
-        <div className={classNames(css.menu, { [css.dark]: dark })}>
-            <>
+        <div className={classNames(css.menuContainer, { [css.dark]: dark })}>
+            <div className={css.logoContainer} onClick={() => history.push('/')}>
+                <img className={css.cubeLogo} src={cubeIcon} />
+            </div>
+            <div className={css.menu}>
                 <div className={css.menuElements}>
                     {!window.location.href.includes('scramble') && (
                         <div className={css.menuPoint} onClick={() => history.push('/')}>
@@ -34,7 +38,7 @@ const Menu: React.FC<{ dark?: boolean }> = ({ dark = false }) => {
                 <i className={classNames('fas fa-user', css.userIcon)} />
 
                 <LoginLink />
-            </>
+            </div>
         </div>
     );
 };
