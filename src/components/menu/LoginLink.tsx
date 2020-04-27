@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../firebase/FirebaseProvider';
@@ -18,7 +19,7 @@ const LoginLink = () => {
     };
 
     return isLoading ? null : (
-        <button className={css.loginButton} onClick={onClick}>
+        <button className={classNames(css.loginButton, css.menuPoint)} onClick={onClick}>
             {user ? 'Logg ut' : 'Logg inn'}
         </button>
     );
