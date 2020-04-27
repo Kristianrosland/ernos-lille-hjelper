@@ -1,11 +1,10 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import seedrandom from 'seedrandom';
-import { AuthContext, DataContext } from '../components/firebase/FirebaseProvider';
+import { DataContext } from '../components/firebase/FirebaseProvider';
 import Menu from '../components/menu/Menu';
 import Scramble from '../components/scramble/Scramble';
 import { generate } from '../components/scramble/ScrambleGenerator';
-import FriendsStats from '../components/stats/FriendsStats';
 import SessionStats from '../components/stats/SessionStats';
 import { now } from '../components/timer/format-time-utils';
 import Timer from '../components/timer/Timer';
@@ -15,7 +14,6 @@ const CubeTimer = () => {
     const params = useParams<{ scramble: string }>();
     const [timerRunning, setTimerRunning] = useState(false);
     const { sessionSolves, stored, addNewSolve, removeStoredSolve } = useContext(DataContext);
-    const { user } = useContext(AuthContext);
 
     const history = useHistory();
 
@@ -61,8 +59,6 @@ const CubeTimer = () => {
             />
 
             {!timerRunning && <SessionStats sessionSolves={sessionSolves} bestSolve={stored.best} />}
-
-            {!timerRunning && user && <FriendsStats friends={user.friends} loggedInUsersBestSolve={stored.best} />}
         </div>
     );
 };

@@ -47,7 +47,7 @@ export const getUserData = async (userId: string): Promise<LoggedInUser | null> 
 
             return {
                 username: friendUserName,
-                best: bestSolve,
+                bestSolveTime: bestSolve ? bestSolve.time : undefined,
             };
         }),
     );

@@ -7,7 +7,7 @@ export interface DataState {
 
 export interface Friend {
     username: string | undefined;
-    best: Solve | undefined;
+    bestSolveTime: number | undefined;
 }
 
 export interface StoredData {
