@@ -18,7 +18,7 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [authState, setAuthState] = useState<AuthState>({ user: null, isLoading: true });
     const [dataState, setDataState] = useState<DataState>({
         sessionSolves: [],
-        stored: { best: undefined },
+        stored: { best: undefined, nLastSolves: undefined },
     });
 
     const updateBest = (bestSolve: Solve | undefined) =>
@@ -51,6 +51,29 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
                 .get()
                 .then(snapshot => snapshot.docs.forEach(doc => doc.ref.delete()));
         }
+    };
+
+    const getLastNStoredSolves = async (n: number): Promise<Solve[] | null> => {
+        if (!authState.user?.uid) {
+            return null;
+        }
+        if (dataState.stored.nLastSolves) {
+            return dataState.stored.nLastSolves;
+        }
+
+        const res = await firebase
+            .firestore()
+            .collection('solves')
+            .doc(authState.user!.uid)
+            .collection('all_solves')
+            .orderBy('timestamp', 'desc')
+            .limit(n)
+            .get();
+
+        const solves = res.docs.map(doc => doc.data() as Solve);
+        setDataState(prev => ({ ...prev, stored: { ...prev.stored, nLastSolves: solves } }));
+
+        return solves;
     };
 
     const signIn = async (email: string, password: string) => {
@@ -141,7 +164,7 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
     return (
         <AuthContext.Provider value={{ ...authState, signIn, signUp, signOut }}>
-            <DataContext.Provider value={{ ...dataState, addNewSolve, removeStoredSolve }}>
+            <DataContext.Provider value={{ ...dataState, addNewSolve, removeStoredSolve, getLastNStoredSolves }}>
                 {children}
             </DataContext.Provider>
         </AuthContext.Provider>

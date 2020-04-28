@@ -41,4 +41,5 @@ export const defaultDataState = {
 
     addNewSolve: async () => {},
     removeStoredSolve: async () => {},
+    getLastNStoredSolves: async () => null,
 };

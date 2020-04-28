@@ -4,6 +4,7 @@ import Algorithms from './algorithms/Algorithms';
 import FirebaseProvider from './components/firebase/FirebaseProvider';
 import CubeTimer from './cube-timer/CubeTimer';
 import Login from './login/Login';
+import Profile from './profile/Profile';
 import Register from './register/Register';
 
 const App = () => (
@@ -14,6 +15,7 @@ const App = () => (
             <Route path="/algorithms" component={Algorithms} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
+            <Route path="/profile" component={Profile} />
         </HashRouter>
     </FirebaseProvider>
 );

@@ -7,11 +7,13 @@ export interface DataState {
 
 export interface StoredData {
     best: Solve | undefined;
+    nLastSolves?: Solve[];
 }
 
 export interface DataStateModifiers {
     addNewSolve: (solve: Solve) => Promise<void>;
     removeStoredSolve: (solve: Solve) => Promise<void>;
+    getLastNStoredSolves: (n: number) => Promise<Solve[] | null>;
 }
 
 export interface AuthState {
