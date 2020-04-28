@@ -13,7 +13,7 @@ const Menu: React.FC<{ dark?: boolean }> = ({ dark = false }) => {
     return isLoading ? null : (
         <div className={classNames(css.menuContainer, { [css.dark]: dark })}>
             <div className={css.logoContainer} onClick={() => history.push('/')}>
-                <img className={css.cubeLogo} src={cubeIcon} />
+                <img className={css.cubeLogo} src={cubeIcon} alt="Logo" />
             </div>
             <div className={css.menu}>
                 <div className={css.menuElements}>
