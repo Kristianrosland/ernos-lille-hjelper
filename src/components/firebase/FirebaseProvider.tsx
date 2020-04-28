@@ -5,7 +5,7 @@ import React, { createContext, ReactNode, useCallback, useEffect, useState } fro
 import { Solve } from '../../types/solve-types';
 import { config, defaultAuthState, defaultDataState, getFirebaseError } from './firebase-utils';
 import { AuthState, AuthStateModifiers, DataState, DataStateModifiers } from './types';
-import { getUsername, setUsername, usernameExists } from './userdata-operations';
+import { getUserData, getUserSolvesCollection, setUsername, usernameExists } from './userdata-operations';
 
 firebase.initializeApp(config);
 let auth: firebase.auth.Auth | undefined;
@@ -46,10 +46,13 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         });
 
         if (authState.user && allSolvesCollection) {
+            console.log('Skal slette');
             await allSolvesCollection
                 .where('timestamp', '==', solveToRemove.timestamp)
                 .get()
                 .then(snapshot => snapshot.docs.forEach(doc => doc.ref.delete()));
+        } else {
+            console.log('SLetter ikke');
         }
     };
 
@@ -91,11 +94,7 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     };
 
     const onUserSignedIn = useCallback(async (user: firebase.User) => {
-        allSolvesCollection = firebase
-            .firestore()
-            .collection('solves')
-            .doc(user.uid)
-            .collection('all_solves');
+        allSolvesCollection = getUserSolvesCollection(user.uid);
 
         await allSolvesCollection
             .orderBy('timestamp', 'desc')
@@ -108,11 +107,7 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
                 })),
             );
 
-        firebase
-            .firestore()
-            .collection('solves')
-            .doc(user.uid)
-            .collection('all_solves')
+        getUserSolvesCollection(user.uid)
             .orderBy('time', 'asc')
             .limit(1)
             .onSnapshot(snapshot => {
@@ -120,8 +115,13 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
                 updateBest(solves.length === 0 ? undefined : (solves[0] as Solve));
             });
 
-        const username = await getUsername(user.uid);
-        setAuthState(prev => ({ ...prev, isLoading: false, user: { ...user, username } }));
+        const userData = await getUserData(user.uid);
+
+        setAuthState(prev => ({
+            ...prev,
+            isLoading: false,
+            user: userData ? { ...user, ...userData } : { ...user, username: undefined, friends: [] },
+        }));
     }, []);
 
     const signUp = async (email: string, password: string, username?: string) => {

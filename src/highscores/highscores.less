@@ -1,0 +1,54 @@
+@import '../components/less-variables/colors.less';
+
+.container {
+    background-color: @red;
+    height: 100vh;
+    color: @white;
+    padding-top: 7rem;
+    display: flex;
+    justify-content: center;
+}
+
+.highscoresContainer {
+    width: 80%;
+}
+
+.heading {
+    font-weight: 600;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+.highscoreList {
+    list-style-type: none;
+    padding-left: 0;
+    font-size: 2rem;
+}
+
+.scoreContainer {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.scoreContainer.loggedInUser {
+    color: @yellow;
+}
+
+.scoreContainer > * {
+    width: 30%;
+}
+
+.score {
+    text-align: right;
+    margin-right: 50px;
+}
+
+@media screen and (min-width: 1140px) {
+    .highscoresContainer {
+        width: 60%;
+    }
+
+    .heading {
+        font-size: 5rem;
+    }
+}
