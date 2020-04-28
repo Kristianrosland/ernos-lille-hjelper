@@ -22,12 +22,13 @@
 .highscoreList {
     list-style-type: none;
     padding-left: 0;
-    font-size: 2rem;
+    font-size: 1.25rem;
 }
 
 .scoreContainer {
     display: flex;
     margin-bottom: 10px;
+    justify-content: space-between;
 }
 
 .scoreContainer.loggedInUser {
@@ -40,12 +41,27 @@
 
 .score {
     text-align: right;
-    margin-right: 50px;
+}
+
+.trophy {
+    width: 40px;
 }
 
 @media screen and (min-width: 1140px) {
     .highscoresContainer {
         width: 60%;
+    }
+
+    .highscoreList {
+        font-size: 2rem;
+    }
+
+    .scoreContainer {
+        justify-content: normal;
+    }
+
+    .score {
+        margin-right: 50px;
     }
 
     .heading {
