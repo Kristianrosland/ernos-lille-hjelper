@@ -18,9 +18,13 @@ const LoginLink = () => {
         }
     };
 
+    const iconMobilView = user ? 'fa-unlock' : 'fa-lock';
     return isLoading ? null : (
         <button className={classNames(css.loginButton, css.menuPoint)} onClick={onClick}>
-            {user ? 'Logg ut' : 'Logg inn'}
+            <div className={css.desktopLoginView}>{user ? 'Logg ut' : 'Logg inn'}</div>
+            <div className={css.mobileLoginView}>
+                <i className={classNames(`fas ${iconMobilView}`)} />
+            </div>
         </button>
     );
 };

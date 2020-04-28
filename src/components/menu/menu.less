@@ -33,7 +33,7 @@
 
 .menuElements {
     display: flex;
-    margin-right: 2rem;
+    margin-right: 5px;
 }
 
 .loginButton {
@@ -44,17 +44,14 @@
     font-size: 1rem;
 }
 
-.userName {
-    margin-right: 0.65rem;
-}
-
+.userName,
 .userIcon {
-    margin-right: 0.25rem;
+    display: none;
 }
 
 .menuPoint {
-    margin: 0 0.5rem;
-    color: white;
+    margin-right: 1rem;
+    color: @white;
 }
 
 .menuPoint:hover {
@@ -84,13 +81,49 @@
 }
 
 .menuContainer.dark {
-    color: black;
+    color: @black;
 }
 
 .menuContainer.dark .loginButton {
-    color: black;
+    color: @black;
 }
 
 .menuContainer.dark .menuPoint {
-    color: black;
+    color: @black;
+}
+
+.menuContainer.dark .menuPoint::after {
+    background: @black;
+}
+
+.desktopLoginView {
+    display: none;
+}
+
+@media screen and (min-width: 1140px) {
+    .userName {
+        margin-right: 0.65rem;
+        display: inline-block;
+    }
+
+    .userIcon {
+        margin-right: 0.25rem;
+        display: inline-block;
+    }
+
+    .mobileLoginView {
+        display: none;
+    }
+
+    .desktopLoginView {
+        display: inline-block;
+    }
+
+    .menuElements {
+        margin-right: 2rem;
+    }
+
+    .menuPoint {
+        margin-right: 2rem;
+    }
 }
