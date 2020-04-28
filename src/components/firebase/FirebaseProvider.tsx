@@ -46,13 +46,10 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         });
 
         if (authState.user && allSolvesCollection) {
-            console.log('Skal slette');
             await allSolvesCollection
                 .where('timestamp', '==', solveToRemove.timestamp)
                 .get()
                 .then(snapshot => snapshot.docs.forEach(doc => doc.ref.delete()));
-        } else {
-            console.log('SLetter ikke');
         }
     };
 

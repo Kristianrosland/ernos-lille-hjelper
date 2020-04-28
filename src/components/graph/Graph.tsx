@@ -15,8 +15,6 @@ const Graph = () => {
         }
     };
 
-    console.log(hundredLastSolves.slice(0, 20).map(s => s.time / 1000));
-
     useEffect(() => {
         fetchHundredLastSolves();
     }, [setHundredLastSolves, getLastNStoredSolves]);
