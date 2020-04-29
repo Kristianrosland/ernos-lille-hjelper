@@ -1,10 +1,11 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import seedrandom from 'seedrandom';
 import { DataContext } from '../components/firebase/FirebaseProvider';
 import Menu from '../components/menu/Menu';
 import Scramble from '../components/scramble/Scramble';
-import { generate } from '../components/scramble/ScrambleGenerator';
+import { generate, getCubeFrontFace } from '../components/scramble/ScrambleGenerator';
+import ScrambleVisualization from '../components/scramble/ScrambleVisualization';
 import SessionStats from '../components/stats/SessionStats';
 import { now } from '../components/timer/format-time-utils';
 import Timer from '../components/timer/Timer';
@@ -13,20 +14,19 @@ import css from './cube-timer.less';
 const CubeTimer = () => {
     const params = useParams<{ scramble: string }>();
     const [timerRunning, setTimerRunning] = useState(false);
-    const { sessionSolves, stored, addNewSolve, removeStoredSolve } = useContext(DataContext);
 
+    const { sessionSolves, stored, addNewSolve, removeStoredSolve } = useContext(DataContext);
     const history = useHistory();
+    const scrambleFrontFace = useMemo(() => {
+        return params.scramble ? getCubeFrontFace(params.scramble) : null;
+    }, [params.scramble]);
 
     const setNewScramble = useCallback(async () => {
         if (params.scramble) {
             seedrandom(params.scramble, { global: true });
         }
-        history.push(
-            '/scramble/' +
-                generate()
-                    .trim()
-                    .replace(/ /g, '-'),
-        );
+        const scramble = generate();
+        history.push('/scramble/' + scramble.trim().replace(/ /g, '-'));
     }, [history, params.scramble]);
 
     useEffect(() => {
@@ -57,7 +57,7 @@ const CubeTimer = () => {
                 }
                 removeSolve={removeStoredSolve}
             />
-
+            {!timerRunning && scrambleFrontFace && <ScrambleVisualization frontFace={scrambleFrontFace} />}
             {!timerRunning && <SessionStats sessionSolves={sessionSolves} bestSolve={stored.best} />}
         </div>
     );
