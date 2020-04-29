@@ -53,7 +53,7 @@ const Highscores: React.FC = () => {
                                 <div className={css.score}>
                                     {highscore.solveTime ? formatTimer(highscore.solveTime) : '-'}
                                 </div>
-                                <div>
+                                <div className={css.trophy}>
                                     {highscore.solveTime && highscore.solveTime === bestSolve ? (
                                         <i className={classNames('fas fa-trophy')} />
                                     ) : null}

@@ -2,7 +2,8 @@ import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../firebase/FirebaseProvider';
-import cubeIcon from './cube-logo.svg';
+import cubeIconBlack from './cube-logo-black.svg';
+import cubeIconWhite from './cube-logo-white.svg';
 import LoginLink from './LoginLink';
 import css from './menu.less';
 
@@ -13,7 +14,7 @@ const Menu: React.FC<{ dark?: boolean }> = ({ dark = false }) => {
     return isLoading ? null : (
         <div className={classNames(css.menuContainer, { [css.dark]: dark })}>
             <div className={css.logoContainer} onClick={() => history.push('/')}>
-                <img className={css.cubeLogo} src={cubeIcon} alt="Logo" />
+                <img className={css.cubeLogo} src={dark ? cubeIconBlack : cubeIconWhite} alt="Logo" />
             </div>
             <div className={css.menu}>
                 <div className={css.menuElements}>
