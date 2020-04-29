@@ -1,5 +1,5 @@
 import sortBy from 'lodash.sortby';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { VictoryChart, VictoryLine, VictoryTheme } from 'victory';
 import { Solve } from '../../types/solve-types';
 import { DataContext } from '../firebase/FirebaseProvider';
@@ -9,37 +9,30 @@ const Graph = () => {
     const { getLastNStoredSolves } = useContext(DataContext);
     const [solves, setSolves] = useState<Solve[]>([]);
 
-    const fetchSolves = useCallback(async () => {
-        const fetchedSolves = await getLastNStoredSolves(1000);
-        if (fetchedSolves) {
-            setSolves(sortBy(fetchedSolves.reverse(), s => -s.timestamp));
-        }
+    useEffect(() => {
+        const fetchSolves = async () => {
+            const fetchedSolves = await getLastNStoredSolves(1000);
+            if (fetchedSolves) {
+                const sorted = sortBy(fetchedSolves, s => s.timestamp);
+                setSolves(sorted);
+            }
+        };
+        fetchSolves();
     }, [getLastNStoredSolves]);
 
-    useEffect(() => {
-        fetchSolves();
-    }, [fetchSolves]);
+    const firstTen = solves.slice(0, 10);
+    const avgOfFirst10 = firstTen.map(s => s.time / 1000).reduce((a, b) => a + b, 0) / firstTen.length;
 
-    let p = new Date().getTime();
-    solves.forEach(s => {
-        if (s.timestamp >= p) {
-            console.log('FUCK', s.timestamp, p);
-        }
-
-        p = s.timestamp;
-    });
-
-    const globalAvgDevelopment =
+    const globalAvgDevelopmentInclFirst10Average =
         solves.length > 0
-            ? solves.reduce(
-                  (acc, s) => {
-                      const prev = acc[acc.length - 1];
-                      const newAverage = (prev * acc.length + s.time / 1000) / (acc.length + 1);
-                      return [...acc, newAverage];
-                  },
-                  [solves[0].time / 1000],
-              )
+            ? solves.reduce((acc, s) => {
+                  const prev = acc[acc.length - 1];
+                  const newAverage = (prev * acc.length + s.time / 1000) / (acc.length + 1);
+                  return [...acc, newAverage];
+              }, Array(firstTen.length).fill(avgOfFirst10))
             : [];
+
+    const globalAvgDevelopment = globalAvgDevelopmentInclFirst10Average.slice(firstTen.length);
 
     const MARGIN = 3;
     const smallest =
