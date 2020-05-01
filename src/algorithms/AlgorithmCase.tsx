@@ -6,9 +6,10 @@ import { F2LCase } from './cases';
 
 interface Props {
     f2lCase: F2LCase;
+    isQuizzing?: boolean;
 }
 
-const AlgorithmCase: React.FC<Props> = ({ f2lCase }) => {
+const AlgorithmCase: React.FC<Props> = ({ f2lCase, isQuizzing = false }) => {
     const [editing, setEditing] = useState(false);
     const [input, setInput] = useState('');
 
@@ -23,7 +24,7 @@ const AlgorithmCase: React.FC<Props> = ({ f2lCase }) => {
             <ReactSVG src={`cases/${f2lCase.name}.svg`} />
             <div className={css.algorithm}>
                 <div className={css.algHeader}>Anbefalt algoritme</div>
-                <div className={css.algorithmText}>{f2lCase.alg}</div>
+                <div className={classNames(css.algorithmText, { [css.quizzing]: isQuizzing })}>{f2lCase.alg}</div>
 
                 {editing ? (
                     <div>

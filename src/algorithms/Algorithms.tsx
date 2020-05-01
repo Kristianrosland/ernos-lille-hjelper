@@ -9,6 +9,7 @@ const Algorithms = () => {
     const [query, setQuery] = useState('');
     const [currentCases, setCurrentCases] = useState<F2LCase[]>([]);
     const [howItWorks, setHowItWorks] = useState(false);
+    const [isQuizzing, setIsQuizzing] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -20,13 +21,23 @@ const Algorithms = () => {
 
             setQuery('');
             setCurrentCases(matches);
+            setIsQuizzing(false);
             setError(matches.length === 0 ? `${inp} er ikke en F2L-case` : null);
         }
+    };
+
+    const randomCase = () => {
+        const rndCase = cases[Math.floor(Math.random() * cases.length)];
+        setCurrentCases([rndCase]);
+        setIsQuizzing(true);
     };
 
     return (
         <div className={css.container}>
             <Menu dark={true} />
+            <button className={css.randomCaseButton} onClick={randomCase}>
+                Random case quiz
+            </button>
             <input value={query} onChange={onChange} className={css.queryInput} placeholder="Søk.." />
 
             {howItWorks ? (
@@ -40,7 +51,7 @@ const Algorithms = () => {
             {error && <div className={css.notFound}>{error}</div>}
 
             {currentCases.map(c => (
-                <AlgorithmCase key={c.name} f2lCase={c} />
+                <AlgorithmCase key={c.name} f2lCase={c} isQuizzing={isQuizzing} />
             ))}
         </div>
     );
