@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import seedrandom from 'seedrandom';
-import { DataContext } from '../components/firebase/FirebaseProvider';
+import { AuthContext, DataContext } from '../components/firebase/FirebaseProvider';
 import Menu from '../components/menu/Menu';
 import Scramble from '../components/scramble/Scramble';
 import { generate, getCubeFrontFace } from '../components/scramble/ScrambleGenerator';
@@ -9,11 +9,13 @@ import ScrambleVisualization from '../components/scramble/ScrambleVisualization'
 import SessionStats from '../components/stats/SessionStats';
 import { now } from '../components/timer/format-time-utils';
 import Timer from '../components/timer/Timer';
+import SolveTags from '../solve-tags/SolveTags';
 import css from './cube-timer.less';
 
 const CubeTimer = () => {
     const params = useParams<{ scramble: string }>();
     const [timerRunning, setTimerRunning] = useState(false);
+    const { featureFlags } = useContext(AuthContext);
 
     const { sessionSolves, stored, addNewSolve, removeStoredSolve } = useContext(DataContext);
     const history = useHistory();
@@ -59,6 +61,7 @@ const CubeTimer = () => {
             />
             {!timerRunning && scrambleFrontFace && <ScrambleVisualization frontFace={scrambleFrontFace} />}
             {!timerRunning && <SessionStats sessionSolves={sessionSolves} bestSolve={stored.best} />}
+            {!timerRunning && featureFlags?.includes('solveTags') && <SolveTags />}
         </div>
     );
 };

@@ -19,7 +19,18 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [dataState, setDataState] = useState<DataState>({
         sessionSolves: [],
         stored: { best: undefined, nLastSolves: undefined },
+        activeTags: ['3x3'],
     });
+
+    const addActiveTag = (tag: string) => {
+        if (!dataState.activeTags.includes(tag)) {
+            setDataState(prev => ({ ...prev, activeTags: [...prev.activeTags, tag] }));
+        }
+    };
+
+    const removeActiveTag = (tag: string) => {
+        setDataState(prev => ({ ...prev, activeTags: prev.activeTags.filter(t => t !== tag) }));
+    };
 
     const updateBest = (bestSolve: Solve | undefined) =>
         setDataState(prev => ({ ...prev, stored: { ...prev.stored, best: bestSolve } }));
@@ -29,7 +40,7 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
         if (authState.user && allSolvesCollection) {
             const doc = allSolvesCollection.doc();
-            await doc.set(solve);
+            await doc.set({ ...solve, tags: dataState.activeTags });
 
             const solveWithId = { ...solve, id: doc.id };
 
@@ -109,15 +120,17 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
             .limit(1)
             .onSnapshot(snapshot => {
                 const solves = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+                console.log(solves);
                 updateBest(solves.length === 0 ? undefined : (solves[0] as Solve));
             });
 
-        const userData = await getUserData(user.uid);
+        const { userData, featureFlags } = await getUserData(user.uid);
 
         setAuthState(prev => ({
             ...prev,
             isLoading: false,
             user: userData ? { ...user, ...userData } : { ...user, username: undefined, friends: [] },
+            featureFlags,
         }));
     }, []);
 
@@ -161,7 +174,16 @@ const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
     return (
         <AuthContext.Provider value={{ ...authState, signIn, signUp, signOut }}>
-            <DataContext.Provider value={{ ...dataState, addNewSolve, removeStoredSolve, getLastNStoredSolves }}>
+            <DataContext.Provider
+                value={{
+                    ...dataState,
+                    addNewSolve,
+                    removeStoredSolve,
+                    getLastNStoredSolves,
+                    addActiveTag,
+                    removeActiveTag,
+                }}
+            >
                 {children}
             </DataContext.Provider>
         </AuthContext.Provider>

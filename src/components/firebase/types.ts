@@ -3,6 +3,7 @@ import { Solve } from '../../types/solve-types';
 export interface DataState {
     sessionSolves: Solve[];
     stored: StoredData;
+    activeTags: string[];
 }
 
 export interface Friend {
@@ -19,11 +20,14 @@ export interface DataStateModifiers {
     addNewSolve: (solve: Solve) => Promise<void>;
     removeStoredSolve: (solve: Solve) => Promise<void>;
     getLastNStoredSolves: (n: number) => Promise<Solve[] | null>;
+    addActiveTag: (tag: string) => void;
+    removeActiveTag: (tag: string) => void;
 }
 
 export interface AuthState {
     user: (firebase.User & LoggedInUser) | null;
     isLoading: boolean;
+    featureFlags?: string[];
 }
 
 export interface LoggedInUser {

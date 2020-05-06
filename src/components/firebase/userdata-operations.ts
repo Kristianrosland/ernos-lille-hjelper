@@ -23,7 +23,9 @@ const getPublicUserData = (userId: string) =>
         .doc(userId)
         .get();
 
-export const getUserData = async (userId: string): Promise<LoggedInUser | null> => {
+export const getUserData = async (
+    userId: string,
+): Promise<{ userData: LoggedInUser | null; featureFlags?: string[] }> => {
     const doc = await getUserDataCollection(userId);
     const publicDoc = await getPublicUserData(userId);
 
@@ -33,11 +35,14 @@ export const getUserData = async (userId: string): Promise<LoggedInUser | null> 
 
     if (!data) {
         return {
-            username,
-            friends: [],
+            userData: {
+                username,
+                friends: [],
+            },
         };
     }
 
+    const featureFlags = 'featureFlags' in data ? data.featureFlags : undefined;
     const friendIds: string[] = 'friends' in data ? data.friends : [];
     const friends = await Promise.all(
         friendIds.map(async id => {
@@ -67,9 +72,13 @@ export const getUserData = async (userId: string): Promise<LoggedInUser | null> 
             }
         }),
     );
+
     return {
-        username,
-        friends: friends.filter(f => f !== null).map(f => f as Friend),
+        userData: {
+            username,
+            friends: friends.filter(f => f !== null).map(f => f as Friend),
+        },
+        featureFlags,
     };
 };
 

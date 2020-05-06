@@ -38,8 +38,12 @@ export const defaultDataState = {
     stored: {
         best: undefined,
     },
+    activeTags: [],
 
     addNewSolve: async () => {},
     removeStoredSolve: async () => {},
     getLastNStoredSolves: async () => null,
+
+    addActiveTag: () => {},
+    removeActiveTag: () => {},
 };
